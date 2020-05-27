@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/seibert-io/heyday-releases/compare/v1.3.1...v1.4.0) (2020-05-27)
+
+
+### Features
+
+* complete-deployment command ([cd8c6e3](https://github.com/seibert-io/heyday-releases/commit/cd8c6e3))
+
 ## [1.3.1](https://github.com/seibert-io/heyday-releases/compare/v1.3.0...v1.3.1) (2020-05-27)
 
 
