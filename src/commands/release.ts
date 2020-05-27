@@ -1,9 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import shell from 'shelljs';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as shell from 'shelljs';
 import chalk from 'chalk';
-import semanticRelease from 'semantic-release';
-import appRoot from 'app-root-path';
+import * as semanticRelease from 'semantic-release';
+import * as appRoot from 'app-root-path';
 
 function getSemanticReleaseOptions(): semanticRelease.Options {
 	const baseOptions: semanticRelease.Options = require(path.resolve(__dirname, '../../release.config.base.js')); // eslint-disable-line @typescript-eslint/no-var-requires
