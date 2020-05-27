@@ -1,4 +1,4 @@
-import '@libraries/utils/env';
+import '@seibert-io/heyday-env';
 import fs from 'fs';
 import path from 'path';
 import { program } from 'commander';

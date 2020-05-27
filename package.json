@@ -25,6 +25,7 @@
 		"@commitlint/cli": "8.2.0",
 		"@commitlint/config-conventional": "8.2.0",
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v1.0.4",
+		"@seibert-io/heyday-env": "github:seibert-io/heyday-env#v1.0.0",
 		"@seibert-io/heyday-sentry": "github:seibert-io/heyday-sentry#v1.1.0",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/commit-analyzer": "^8.0.1",
