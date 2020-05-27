@@ -3,14 +3,10 @@
 	"version": "1.0.0",
 	"private": true,
 	"bin": {
-		"release": "./src/main.js"
+		"release": "./src/app.js"
 	},
 	"scripts": {
-		"release": "node src/main.js",
-		"create-deployment": "npm run ts-node src/create-deployment.ts",
-		"ci:deploy": "npm run ts-node src/deploy.ts",
-		"ci:release": "npm run ts-node src/release.ts",
-		"ts-node": "ts-node -P ./tsconfig.node.json -r tsconfig-paths/register --files"
+		"app": "node src/app.js"
 	},
 	"dependencies": {
 		"@sentry/core": "5.7.1",
@@ -29,7 +25,7 @@
 		"@commitlint/cli": "8.2.0",
 		"@commitlint/config-conventional": "8.2.0",
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v1.0.4",
-		"@seibert-io/heyday-sentry": "github:seibert-io/heyday-sentry#v1.0.0",
+		"@seibert-io/heyday-sentry": "github:seibert-io/heyday-sentry#v1.1.0",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/commit-analyzer": "^8.0.1",
 		"@semantic-release/git": "^9.0.0",

@@ -7,7 +7,7 @@ import semanticRelease from 'semantic-release';
 import appRoot from 'app-root-path';
 
 function getSemanticReleaseOptions(): semanticRelease.Options {
-	const baseOptions: semanticRelease.Options = require('../release.config.base.js'); // eslint-disable-line @typescript-eslint/no-var-requires
+	const baseOptions: semanticRelease.Options = require(path.resolve(__dirname, '../../release.config.base.js')); // eslint-disable-line @typescript-eslint/no-var-requires
 	const localOptionsFilename: string = `${appRoot}release.config.js`;
 
 	return fs.existsSync(localOptionsFilename) ? JSON.parse(fs.readFileSync(localOptionsFilename, 'utf8')) : baseOptions;
@@ -25,8 +25,7 @@ async function notifySentryOfRelease(): Promise<void> {
 
 	console.log(chalk.white('[release] Starting Sentry release...'));
 
-	const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
-	const currentVersion = `${packageJson.name}@${packageJson.version}`;
+	const currentVersion = `${process.env.npm_package_name}@${process.env.npm_package_version}`;
 	console.log(chalk.white(`[release] Sentry release version: ${currentVersion}`));
 
 	shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
@@ -62,7 +61,7 @@ async function executeSemanticRelease(): Promise<boolean> {
 	const result: semanticRelease.Result = await semanticRelease(getSemanticReleaseOptions());
 
 	if (!result || result.lastRelease.version === result.nextRelease.version) {
-		console.log(chalk.yellow('[release] No relevant changes - no release created'));
+		console.log(chalk.yellow('[release] No release created'));
 		return false;
 	}
 

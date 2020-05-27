@@ -4,10 +4,10 @@ import path from 'path';
 import { program } from 'commander';
 import deploy from './commands/deploy';
 import release from './commands/release';
+import { captureAndLogError } from '@seibert-io/heyday-sentry/dist/node';
 
 const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
 program.version(packageJson.version, '-v, --version', 'output the current version');
-import { captureAndLogError } from '@seibert-io/heyday-sentry/src/node';
 
 program
 	.command('deploy')
@@ -24,3 +24,5 @@ program
 	});
 
 program.parse(process.argv);
+
+export { deploy, release, program as default };
