@@ -107,6 +107,7 @@ function deploy() {
                         if (hasLocalChanges)
                             shell.exec('git stash pop');
                     }
+                    console.log('[deploy] Finished');
                     return [2 /*return*/];
             }
         });

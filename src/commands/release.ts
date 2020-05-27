@@ -93,8 +93,10 @@ export default async function release(dryRun: boolean = false): Promise<void> {
 
 	if (releaseCreated) {
 		if (!dryRun) await notifySentryOfRelease();
+		console.log('[release] Finished');
 		process.exit();
 	} else {
+		console.log('[release] Nothing to do');
 		process.exit(1);
 	}
 	// add further release steps here that may take place after creating the release

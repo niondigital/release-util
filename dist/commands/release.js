@@ -146,9 +146,11 @@ function release(dryRun) {
                     _a.sent();
                     _a.label = 3;
                 case 3:
+                    console.log('[release] Finished');
                     process.exit();
                     return [3 /*break*/, 5];
                 case 4:
+                    console.log('[release] Nothing to do');
                     process.exit(1);
                     _a.label = 5;
                 case 5: return [2 /*return*/];

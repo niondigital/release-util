@@ -84,4 +84,6 @@ export default async function deploy(): Promise<void> {
 		shell.exec(`git checkout ${currentBranchName}`);
 		if (hasLocalChanges) shell.exec('git stash pop');
 	}
+
+	console.log('[deploy] Finished');
 }
