@@ -18,9 +18,10 @@ program
 
 program
 	.command('release')
+	.option('-d, --dry-run', 'Perform a dry-run without creating a release')
 	.description('Create a release in the current Git branch')
-	.action(() => {
-		release().catch(captureAndLogError);
+	.action((options: any) => {
+		release(!!options.dryRun).catch(captureAndLogError);
 	});
 
 program.parse(process.argv);
