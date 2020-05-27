@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/seibert-io/heyday-releases/compare/v1.2.0...v1.2.1) (2020-05-27)
+
+
+### Bug Fixes
+
+* binary not executable ([198878d](https://github.com/seibert-io/heyday-releases/commit/198878d))
+
 # [1.2.0](https://github.com/seibert-io/heyday-releases/compare/v1.1.1...v1.2.0) (2020-05-27)
 
 
