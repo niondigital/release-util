@@ -20,6 +20,9 @@ function getSemanticReleaseOptions(): semanticRelease.Options {
 async function notifySentryOfRelease(): Promise<void> {
 	// only execute if sentry is enabled per environment config
 	if (['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase())) {
+		console.info(
+			'Environment variable SENTRY_ENABLED not set or explictly disabling Sentry - skipping sentry release...'
+		);
 		return;
 	}
 
@@ -27,6 +30,18 @@ async function notifySentryOfRelease(): Promise<void> {
 
 	const currentVersion = `${process.env.npm_package_name}@${process.env.npm_package_version}`;
 	console.log(chalk.white(`[release] Sentry release version: ${currentVersion}`));
+
+	if (!process.env.SENTRY_AUTH_TOKEN) {
+		throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
+	}
+
+	if (!process.env.SENTRY_ORG) {
+		throw new Error('Please set environment variable SENTRY_ORG');
+	}
+
+	if (!process.env.SENTRY_PROJECT) {
+		throw new Error('Please set environment variable SENTRY_PROJECT');
+	}
 
 	shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
 	shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
@@ -36,16 +51,20 @@ async function notifySentryOfRelease(): Promise<void> {
 	// Create a Sentry release
 	shell.exec(`sentry-cli releases new --finalize -p ${sentryProject} "${currentVersion}"`, { silent: false });
 
-	// Associate latest commit with the release
-	const releaseCommitRef = shell
-		.exec('git log -1 --format="%H"', { silent: true })
-		.toString()
-		.replace(/(\n|\r)/, '');
+	if (process.env.SENTRY_REPOSITORY_ID) {
+		// Associate latest commit with the release
+		const releaseCommitRef = shell
+			.exec('git log -1 --format="%H"', { silent: true })
+			.toString()
+			.replace(/(\n|\r)/, '');
 
-	shell.exec(
-		`sentry-cli releases set-commits "${currentVersion}" --commit "${process.env.SENTRY_REPOSITORY_ID}@${releaseCommitRef}"`,
-		{ silent: false }
-	);
+		shell.exec(
+			`sentry-cli releases set-commits "${currentVersion}" --commit "${process.env.SENTRY_REPOSITORY_ID}@${releaseCommitRef}"`,
+			{ silent: false }
+		);
+	} else {
+		console.info('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...');
+	}
 	console.log(chalk.greenBright('[release] Sentry release completed'));
 }
 
