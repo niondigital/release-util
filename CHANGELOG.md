@@ -1,3 +1,5 @@
+## [1.2.2](https://github.com/seibert-io/heyday-releases/compare/v1.2.1...v1.2.2) (2020-05-27)
+
 ## [1.2.1](https://github.com/seibert-io/heyday-releases/compare/v1.2.0...v1.2.1) (2020-05-27)
 
 
