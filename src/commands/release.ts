@@ -73,10 +73,10 @@ async function notifySentryOfRelease(): Promise<void> {
  * - Bumps package.json version
  * - Commits and pushes package.json and Changelog
  */
-async function executeSemanticRelease(): Promise<boolean> {
+async function executeSemanticRelease(dryRun: boolean = false): Promise<boolean> {
 	console.log(chalk.white('[release] Starting semantic release...'));
 
-	const result: semanticRelease.Result = await semanticRelease(getSemanticReleaseOptions());
+	const result: semanticRelease.Result = await semanticRelease({ ...getSemanticReleaseOptions(), dryRun });
 
 	if (!result || result.lastRelease.version === result.nextRelease.version) {
 		console.log(chalk.yellow('[release] No release created'));
@@ -87,12 +87,12 @@ async function executeSemanticRelease(): Promise<boolean> {
 	return true;
 }
 
-export default async function release(): Promise<void> {
+export default async function release(dryRun: boolean = false): Promise<void> {
 	// (changelog, version bump, git commit)
-	await notifySentryOfRelease();
-	const releaseCreated: boolean = await executeSemanticRelease();
+	const releaseCreated: boolean = await executeSemanticRelease(dryRun);
 
 	if (releaseCreated) {
+		if (!dryRun) await notifySentryOfRelease();
 		process.exit();
 	} else {
 		process.exit(1);
