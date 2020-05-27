@@ -1,0 +1,37 @@
+{
+	"auto-close-tag.enableAutoCloseSelfClosingTag": true,
+	"auto-close-tag.activationOnLanguage": ["xml", "vue", "HTML (Eex)"],
+	"editor.rulers": [120],
+	"editor.formatOnSave": false,
+	"eslint.trace.server": "messages",
+	"eslint.validate": [
+		"vue", "html", "typescript", "javascript", "json", "php", "scss", "md"
+	],
+	"vetur.validation.template": false,
+	"javascript.preferences.quoteStyle": "single",
+	"typescript.preferences.quoteStyle": "single",
+	"eslint.enable": true,
+
+	"scss.validate": false,
+	"[scss]": {
+		"editor.formatOnSave": false,
+	},
+	"[php]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+		"editor.quickSuggestions": {
+			"comments": true
+		}
+	},
+	"[markdown]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"importCost.typescriptExtensions": ["\\.tsx?$", "\\.vue$"],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true,
+		"source.fixAll.stylelint": true
+	},
+	"git.inputValidationLength": 82,
+	"git.inputValidationSubjectLength": 82
+}

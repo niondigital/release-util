@@ -14,8 +14,7 @@
     "noUnusedLocals": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env",
-      "jest"
+			"node"
     ],
     "typeRoots": [
       "./node_modules/@types"
@@ -24,29 +23,8 @@
       "@/*": [
         "./*"
       ],
-      "@frontend/*": [
-        "frontend/src/*"
-      ],
-      "@assets/*": [
-        "frontend/src/assets/*"
-      ],
-      "@components/*": [
-        "frontend/src/components/01-components/*"
-      ],
-      "@views/*": [
-        "frontend/src/components/02-views/*"
-      ],
-	  "@mediators/*": [
-		"frontend/src/components/03-mediators/*"
-	  ],
-      "@modules/*": [
-	    "frontend/src/components/04-modules/*"
-	  ],
-      "@api/*": [
-        "api/src/*"
-      ],
-      "@scripts/*": [
-        "scripts/*"
+      "@src/*": [
+        "src/*"
       ],
       "@libraries/*": [
         "libraries/src/*"
@@ -62,8 +40,7 @@
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
-    "**/*.vue"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

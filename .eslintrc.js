@@ -4,12 +4,9 @@ module.exports = {
 		node: true
 	},
 
-	plugins: ['@typescript-eslint', 'no-new-instance', 'vuex-module-decorators'],
+	plugins: ['@typescript-eslint', 'no-new-instance'],
 
 	extends: [
-		'plugin:vue/essential',
-		'@vue/airbnb',
-		'@vue/typescript',
 		'plugin:@typescript-eslint/recommended',
 		'eslint-config-prettier', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
 		'prettier/@typescript-eslint',
@@ -36,7 +33,6 @@ module.exports = {
 		'prefer-destructuring': 0,
 		'consistent-return': 0,
 		'no-undefined': 0,
-		'no-bitwise': 0,
 		'@typescript-eslint/indent': ['error', 'tab'],
 		camelcase: 'off',
 		'@typescript-eslint/camelcase': [
@@ -58,21 +54,25 @@ module.exports = {
 			}
 		],
 		'@typescript-eslint/interface-name-prefix': 'off',
-		// @typescript-eslint/semi should be used instead as soon as it has been released in 1.8.0
 		semi: 0,
 		'@typescript-eslint/semi': ['error'],
-		'no-new-instance/no-new-instance': ['error', ['Event']],
-		'vuex-module-decorators/no-invalid-store-members': 'error',
-		'vuex-module-decorators/no-invalid-store-methods': 'error'
+		'no-new-instance/no-new-instance': ['error', ['Event']]
 	},
-	parser: 'vue-eslint-parser',
-	parserOptions: {
-		parser: '@typescript-eslint/parser',
-		extraFileExtensions: ['.vue']
-	},
+
+	overrides: [
+		{
+			files: ['**/*.json'],
+			rules: {
+				'@typescript-eslint/semi': 0,
+			}
+		}
+	],
+
+	parser: '@typescript-eslint/parser',
+
 	settings: {
 		'import/resolver': {
-			node: {},
-		},
+			node: {}
+		}
 	}
 };
