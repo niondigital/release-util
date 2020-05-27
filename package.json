@@ -3,10 +3,10 @@
 	"version": "1.2.0",
 	"private": true,
 	"bin": {
-		"release": "./src/app.js"
+		"heyday-release": "./src/app.js"
 	},
 	"scripts": {
-		"app": "node src/app.js"
+		"heyday-release": "src/app.js"
 	},
 	"dependencies": {
 		"@sentry/core": "5.7.1",
