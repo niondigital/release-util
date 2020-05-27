@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
+const path = require('path'); // eslint-disable-line
+
 require('ts-node').register({
-	project: './tsconfig.node.json'
+	project: path.resolve(__dirname, '../tsconfig.node.json')
 });
 require('tsconfig-paths').register();
-require('./app.ts');
+require(path.resolve(__dirname, './app.ts'));
