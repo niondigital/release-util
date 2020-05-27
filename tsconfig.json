@@ -1,0 +1,71 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "baseUrl": ".",
+    "types": [
+      "webpack-env",
+      "jest"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@frontend/*": [
+        "frontend/src/*"
+      ],
+      "@assets/*": [
+        "frontend/src/assets/*"
+      ],
+      "@components/*": [
+        "frontend/src/components/01-components/*"
+      ],
+      "@views/*": [
+        "frontend/src/components/02-views/*"
+      ],
+	  "@mediators/*": [
+		"frontend/src/components/03-mediators/*"
+	  ],
+      "@modules/*": [
+	    "frontend/src/components/04-modules/*"
+	  ],
+      "@api/*": [
+        "api/src/*"
+      ],
+      "@scripts/*": [
+        "scripts/*"
+      ],
+      "@libraries/*": [
+        "libraries/src/*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+			"scripthost",
+			"es2020.string"
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
