@@ -1,6 +1,8 @@
+#!/usr/bin/env node
+
 import '@seibert-io/heyday-env';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { program } from 'commander';
 import deploy from './commands/deploy';
 import release from './commands/release';

@@ -1,5 +1,5 @@
-import shell, { ShellString } from 'shelljs';
-import inquirer from 'inquirer';
+import * as shell from 'shelljs';
+import * as inquirer from 'inquirer';
 import chalk from 'chalk';
 
 function getDeploymentBranches(): string[] {
@@ -24,7 +24,7 @@ export default async function deploy(): Promise<void> {
 
 	shell.exec('git fetch --all', { silent: true });
 
-	const gitTagOutput: ShellString = shell.exec(
+	const gitTagOutput: shell.ShellString = shell.exec(
 		"git tag -l --sort=-v:refname --format='%(refname:short)|%(creatordate)'",
 		{ silent: true }
 	);
@@ -70,7 +70,7 @@ export default async function deploy(): Promise<void> {
 	currentBranchName = currentBranchName.replace('\n', '');
 
 	let hasLocalChanges: boolean = false;
-	const statusResult: ShellString = shell.exec('git status --porcelain');
+	const statusResult: shell.ShellString = shell.exec('git status --porcelain');
 	hasLocalChanges = statusResult.stdout.split('\n').length > 1;
 	if (hasLocalChanges) shell.exec('git stash');
 
