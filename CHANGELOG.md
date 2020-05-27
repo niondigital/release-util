@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/seibert-io/heyday-releases/compare/v1.1.1...v1.2.0) (2020-05-27)
+
+
+### Features
+
+* release dry-runs ([367ddcd](https://github.com/seibert-io/heyday-releases/commit/367ddcd))
+
 ## [1.1.1](https://github.com/seibert-io/heyday-releases/compare/v1.1.0...v1.1.1) (2020-05-27)
 
 # [1.1.0](https://github.com/seibert-io/heyday-releases/compare/v1.0.0...v1.1.0) (2020-05-27)
