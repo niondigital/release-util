@@ -13,6 +13,7 @@ exports.release = release_1["default"];
 var node_1 = require("@seibert-io/heyday-sentry/dist/node");
 var complete_deployment_1 = require("./commands/complete-deployment");
 exports.completeDeployment = complete_deployment_1.completeDeployment;
+var getPlugins_1 = require("./base/getPlugins");
 var packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
 commander_1.program.version(packageJson.version, '-v, --version', 'output the current version');
 commander_1.program
@@ -24,7 +25,7 @@ commander_1.program
 });
 commander_1.program
     .command('deploy')
-    .description('Create a deployment')
+    .description('Create a deployment by merging a release into a deployment branch')
     .action(function () {
     deploy_1["default"]()["catch"](node_1.captureAndLogError);
 });
@@ -34,4 +35,5 @@ commander_1.program
     .action(function () {
     complete_deployment_1.completeDeployment()["catch"](node_1.captureAndLogError);
 });
+getPlugins_1["default"]().forEach(function (plugin) { return plugin.init(); });
 commander_1.program.parse(process.argv);
