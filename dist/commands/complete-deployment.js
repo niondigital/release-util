@@ -36,43 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var fs = require("fs");
-var path = require("path");
-var shell = require("shelljs");
-var chalk_1 = require("chalk");
-/**
- * Notify Sentry of a deployment of a release
- */
-function notifySentryOfDeployment() {
-    return __awaiter(this, void 0, void 0, function () {
-        var packageJson, currentVersion;
-        return __generator(this, function (_a) {
-            if (['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase())) {
-                console.info('[complete-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
-                return [2 /*return*/];
-            }
-            if (process.env.SENTRY_NOTIFY_OF_DEPLOYMENT !== '1') {
-                console.info('[complete-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
-                return [2 /*return*/];
-            }
-            console.log(chalk_1["default"].white('[complete-deployment] Notifying Sentry of release deployment...'));
-            packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
-            currentVersion = packageJson.name + "@" + packageJson.version;
-            console.log(chalk_1["default"].white("[complete-deployment] Sentry release version to deploy: " + currentVersion));
-            shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
-            shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
-            // Notify of release deployment
-            shell.exec("sentry-cli releases deploys \"" + currentVersion + "\" new -e \"" + process.env.SENTRY_ENVIRONMENT + "\" -u \"" + process.env.DEPLOY_URL + "\"", { silent: false });
-            console.log(chalk_1["default"].greenBright('[complete-deployment] Sentry release deployment completed'));
-            return [2 /*return*/];
-        });
-    });
-}
+var getPlugins_1 = require("../base/getPlugins");
 function completeDeployment() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, notifySentryOfDeployment()];
+                case 0: return [4 /*yield*/, Promise.all(getPlugins_1["default"]().map(function (plugin) {
+                        return plugin.onDeploymentComplete();
+                    }))];
                 case 1:
                     _a.sent();
                     console.log('[complete-deployment] Finished');

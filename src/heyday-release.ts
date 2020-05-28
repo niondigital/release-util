@@ -8,6 +8,8 @@ import deploy from './commands/deploy';
 import release from './commands/release';
 import { captureAndLogError } from '@seibert-io/heyday-sentry/dist/node';
 import { completeDeployment } from './commands/complete-deployment';
+import Plugin from './base/Plugin';
+import getPlugins from './base/getPlugins';
 
 const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
 program.version(packageJson.version, '-v, --version', 'output the current version');
@@ -22,7 +24,7 @@ program
 
 program
 	.command('deploy')
-	.description('Create a deployment')
+	.description('Create a deployment by merging a release into a deployment branch')
 	.action(() => {
 		deploy().catch(captureAndLogError);
 	});
@@ -33,6 +35,8 @@ program
 	.action(() => {
 		completeDeployment().catch(captureAndLogError);
 	});
+
+getPlugins().forEach((plugin: Plugin): void => plugin.init());
 
 program.parse(process.argv);
 

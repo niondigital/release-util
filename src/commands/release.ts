@@ -1,71 +1,9 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import * as shell from 'shelljs';
 import chalk from 'chalk';
 import * as semanticRelease from 'semantic-release';
-import * as appRoot from 'app-root-path';
-
-function getSemanticReleaseOptions(): semanticRelease.Options {
-	const baseOptions: semanticRelease.Options = require(path.resolve(__dirname, '../../release.config.base.js')); // eslint-disable-line @typescript-eslint/no-var-requires
-	const localOptionsFilename: string = `${appRoot}release.config.js`;
-
-	return fs.existsSync(localOptionsFilename) ? JSON.parse(fs.readFileSync(localOptionsFilename, 'utf8')) : baseOptions;
-}
-
-/**
- * Notify Sentry of the new release so issues can be linked with releases
- * and commit suggestions can be made
- */
-async function notifySentryOfRelease(): Promise<void> {
-	// only execute if sentry is enabled per environment config
-	if (['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase())) {
-		console.info(
-			'Environment variable SENTRY_ENABLED not set or explictly disabling Sentry - skipping sentry release...'
-		);
-		return;
-	}
-
-	console.log(chalk.white('[release] Starting Sentry release...'));
-
-	const currentVersion = `${process.env.npm_package_name}@${process.env.npm_package_version}`;
-	console.log(chalk.white(`[release] Sentry release version: ${currentVersion}`));
-
-	if (!process.env.SENTRY_AUTH_TOKEN) {
-		throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
-	}
-
-	if (!process.env.SENTRY_ORG) {
-		throw new Error('Please set environment variable SENTRY_ORG');
-	}
-
-	if (!process.env.SENTRY_PROJECT) {
-		throw new Error('Please set environment variable SENTRY_PROJECT');
-	}
-
-	shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
-	shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
-
-	const sentryProject = process.env.SENTRY_PROJECT || '';
-
-	// Create a Sentry release
-	shell.exec(`sentry-cli releases new --finalize -p ${sentryProject} "${currentVersion}"`, { silent: false });
-
-	if (process.env.SENTRY_REPOSITORY_ID) {
-		// Associate latest commit with the release
-		const releaseCommitRef = shell
-			.exec('git log -1 --format="%H"', { silent: true })
-			.toString()
-			.replace(/(\n|\r)/, '');
-
-		shell.exec(
-			`sentry-cli releases set-commits "${currentVersion}" --commit "${process.env.SENTRY_REPOSITORY_ID}@${releaseCommitRef}"`,
-			{ silent: false }
-		);
-	} else {
-		console.info('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...');
-	}
-	console.log(chalk.greenBright('[release] Sentry release completed'));
-}
+import { getSemanticReleaseOptions } from '../base/semantic-release';
+import Plugin from '../base/Plugin';
+import getPlugins from '../base/getPlugins';
 
 /**
  * Create semantic release:
@@ -87,17 +25,69 @@ async function executeSemanticRelease(dryRun: boolean = false): Promise<boolean>
 	return true;
 }
 
+/**
+ * Netlify only clones the repo as a shallow copy. If we're in a Netlify build context, the current working branch reported by Git will be != process.env.BRANCH reported by Netlify.
+ * We will need to switch to the real branch first to make a release commit in the process.env.BRANCH branch.
+ * The commit we're releasing for is provided by Netlify in env.COMMIT_REF, so we will also reset the build branch to this commit
+ *
+ * !Warning! Don't try this locally - this will meddle with your local git repo!
+ * If you absolutely must enforce using this locally (by setting env.NETLIFY, env.BRANCH and env.COMMIT_REF):
+ * Always explicitly reset the release branch to HEAD and switch back to our working branch afterwards.
+ * Seriously.
+ */
+function handleNetlifyGitSetup(): void {
+	// only operate in Netlify build context
+	if (!process.env.NETLIFY || !process.env.BRANCH || !process.env.COMMIT_REF) return;
+
+	// working dir branch = branch reported by git (in Netlify this will be a commit, not a branch)
+	const workdirBranch = shell
+		.exec('git rev-parse --abbrev-ref HEAD', { silent: true })
+		.toString()
+		.replace(/(\n|\r)/, '');
+
+	// build branch as provided in env by Netlify, working dir branch as a fallback (= working dir is on a real branch)
+	const buildBranch = process.env.BRANCH || workdirBranch;
+
+	// ! Kids, don't try this at home - this will meddle with your local git repo!
+	// !
+	if (workdirBranch !== buildBranch) {
+		// env.BRANCH is different from what Git reports as being the current branch
+		shell.exec(`git branch -f ${buildBranch} ${process.env.COMMIT_REF}`, { silent: true });
+		shell.exec(`git checkout ${buildBranch}`, { silent: true });
+	}
+}
+
 export default async function release(dryRun: boolean = false): Promise<void> {
+	handleNetlifyGitSetup();
+
+	const checks: boolean[] = await Promise.all(
+		getPlugins().map(
+			(plugin: Plugin): Promise<boolean> => {
+				return plugin.beforeRelease(dryRun);
+			}
+		)
+	);
+
+	if (checks.includes(false)) {
+		console.log('[release] Release Prevented by plugin');
+	}
+
 	// (changelog, version bump, git commit)
 	const releaseCreated: boolean = await executeSemanticRelease(dryRun);
 
 	if (releaseCreated) {
-		if (!dryRun) await notifySentryOfRelease();
+		await Promise.all(
+			getPlugins().map(
+				(plugin: Plugin): Promise<void> => {
+					return plugin.afterRelease(dryRun);
+				}
+			)
+		);
+
 		console.log('[release] Finished');
 		process.exit();
 	} else {
 		console.log('[release] Nothing to do');
 		process.exit(1);
 	}
-	// add further release steps here that may take place after creating the release
 }
