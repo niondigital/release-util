@@ -50,8 +50,8 @@ exports.__esModule = true;
 var shell = require("shelljs");
 var chalk_1 = require("chalk");
 var semanticRelease = require("semantic-release");
-var semantic_release_1 = require("../base/semantic-release");
-var getPlugins_1 = require("../base/getPlugins");
+var semantic_release_1 = require("../../base/semantic-release");
+var getPlugins_1 = require("../../base/getPlugins");
 /**
  * Create semantic release:
  * - Updates Changelog
@@ -108,7 +108,7 @@ function handleNetlifyGitSetup() {
         shell.exec("git checkout " + buildBranch, { silent: true });
     }
 }
-function release(dryRun) {
+function createRelease(dryRun) {
     if (dryRun === void 0) { dryRun = false; }
     return __awaiter(this, void 0, void 0, function () {
         var checks, releaseCreated;
@@ -117,7 +117,7 @@ function release(dryRun) {
                 case 0:
                     handleNetlifyGitSetup();
                     return [4 /*yield*/, Promise.all(getPlugins_1["default"]().map(function (plugin) {
-                            return plugin.beforeRelease(dryRun);
+                            return plugin.beforeCreateRelease(dryRun);
                         }))];
                 case 1:
                     checks = _a.sent();
@@ -129,7 +129,7 @@ function release(dryRun) {
                     releaseCreated = _a.sent();
                     if (!releaseCreated) return [3 /*break*/, 4];
                     return [4 /*yield*/, Promise.all(getPlugins_1["default"]().map(function (plugin) {
-                            return plugin.afterRelease(dryRun);
+                            return plugin.afterCreateRelease(dryRun);
                         }))];
                 case 3:
                     _a.sent();
@@ -145,4 +145,4 @@ function release(dryRun) {
         });
     });
 }
-exports["default"] = release;
+exports["default"] = createRelease;
