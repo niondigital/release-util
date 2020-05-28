@@ -1,3 +1,5 @@
+## [1.0.7](https://github.com/madebyheyday/release-util/compare/v1.0.6...v1.0.7) (2020-05-28)
+
 ## [1.0.6](https://github.com/madebyheyday/release-util/compare/v1.0.5...v1.0.6) (2020-05-28)
 
 
