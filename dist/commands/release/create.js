@@ -66,7 +66,6 @@ function executeSemanticRelease(dryRun) {
             switch (_a.label) {
                 case 0:
                     console.log(chalk_1["default"].white('[release] Starting semantic release...'));
-                    console.log(semantic_release_1.getSemanticReleaseOptions());
                     return [4 /*yield*/, semanticRelease(__assign(__assign({}, semantic_release_1.getSemanticReleaseOptions()), { dryRun: dryRun }))];
                 case 1:
                     result = _a.sent();
