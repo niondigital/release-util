@@ -13,7 +13,7 @@ import getPlugins from '../../base/getPlugins';
  */
 async function executeSemanticRelease(dryRun: boolean = false): Promise<boolean> {
 	console.log(chalk.white('[release] Starting semantic release...'));
-
+	console.log(getSemanticReleaseOptions());
 	const result: semanticRelease.Result = await semanticRelease({ ...getSemanticReleaseOptions(), dryRun });
 
 	if (!result || result.lastRelease.version === result.nextRelease.version) {
