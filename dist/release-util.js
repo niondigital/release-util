@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 exports.__esModule = true;
-require("@seibert-io/heyday-env");
+require("@madebyheyday/env-util");
 var fs = require("fs");
 var path = require("path");
 var commander_1 = require("commander");
@@ -10,7 +10,6 @@ var deploy_1 = require("./commands/deploy");
 exports.deploy = deploy_1["default"];
 var release_1 = require("./commands/release");
 exports.release = release_1["default"];
-var node_1 = require("@seibert-io/heyday-sentry/dist/node");
 var complete_deployment_1 = require("./commands/complete-deployment");
 exports.completeDeployment = complete_deployment_1.completeDeployment;
 var getPlugins_1 = require("./base/getPlugins");
@@ -21,19 +20,25 @@ commander_1.program
     .option('-d, --dry-run', 'Perform a dry-run without creating a release')
     .description('Create a release in the current Git branch')
     .action(function (options) {
-    release_1["default"](!!options.dryRun)["catch"](node_1.captureAndLogError);
+    release_1["default"](!!options.dryRun)["catch"](function (error) {
+        console.error(error);
+    });
 });
 commander_1.program
     .command('deploy')
     .description('Create a deployment by merging a release into a deployment branch')
     .action(function () {
-    deploy_1["default"]()["catch"](node_1.captureAndLogError);
+    deploy_1["default"]()["catch"](function (error) {
+        console.error(error);
+    });
 });
 commander_1.program
     .command('complete-deployment')
     .description('Mark a deployment as completed')
     .action(function () {
-    complete_deployment_1.completeDeployment()["catch"](node_1.captureAndLogError);
+    complete_deployment_1.completeDeployment()["catch"](function (error) {
+        console.error(error);
+    });
 });
 getPlugins_1["default"]().forEach(function (plugin) { return plugin.init(); });
 commander_1.program.parse(process.argv);

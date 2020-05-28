@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-import '@seibert-io/heyday-env';
+import '@madebyheyday/env-util';
 import * as fs from 'fs';
 import * as path from 'path';
 import { program } from 'commander';
 import deploy from './commands/deploy';
 import release from './commands/release';
-import { captureAndLogError } from '@seibert-io/heyday-sentry/dist/node';
 import { completeDeployment } from './commands/complete-deployment';
 import Plugin from './base/Plugin';
 import getPlugins from './base/getPlugins';
@@ -19,21 +18,27 @@ program
 	.option('-d, --dry-run', 'Perform a dry-run without creating a release')
 	.description('Create a release in the current Git branch')
 	.action((options: any) => {
-		release(!!options.dryRun).catch(captureAndLogError);
+		release(!!options.dryRun).catch((error: Error) => {
+			console.error(error);
+		});
 	});
 
 program
 	.command('deploy')
 	.description('Create a deployment by merging a release into a deployment branch')
 	.action(() => {
-		deploy().catch(captureAndLogError);
+		deploy().catch((error: Error) => {
+			console.error(error);
+		});
 	});
 
 program
 	.command('complete-deployment')
 	.description('Mark a deployment as completed')
 	.action(() => {
-		completeDeployment().catch(captureAndLogError);
+		completeDeployment().catch((error: Error) => {
+			console.error(error);
+		});
 	});
 
 getPlugins().forEach((plugin: Plugin): void => plugin.init());
