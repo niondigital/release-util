@@ -42,5 +42,7 @@ deploymentCommand
         console.error(error);
     });
 });
-getPlugins_1["default"]().forEach(function (plugin) { return plugin.init(); });
-commander_1.program.parse(process.argv);
+getPlugins_1["default"]().then(function (plugins) {
+    plugins.forEach(function (plugin) { return plugin.init(); });
+    commander_1.program.parse(process.argv);
+});

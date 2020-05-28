@@ -111,36 +111,40 @@ function handleNetlifyGitSetup() {
 function createRelease(dryRun) {
     if (dryRun === void 0) { dryRun = false; }
     return __awaiter(this, void 0, void 0, function () {
-        var checks, releaseCreated;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var checks, _a, _b, releaseCreated, _c, _d;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
                 case 0:
                     handleNetlifyGitSetup();
-                    return [4 /*yield*/, Promise.all(getPlugins_1["default"]().map(function (plugin) {
+                    _b = (_a = Promise).all;
+                    return [4 /*yield*/, getPlugins_1["default"]()];
+                case 1: return [4 /*yield*/, _b.apply(_a, [(_e.sent()).map(function (plugin) {
                             return plugin.beforeCreateRelease(dryRun);
-                        }))];
-                case 1:
-                    checks = _a.sent();
+                        })])];
+                case 2:
+                    checks = _e.sent();
                     if (checks.includes(false)) {
                         console.log('[release] Release Prevented by plugin');
                     }
                     return [4 /*yield*/, executeSemanticRelease(dryRun)];
-                case 2:
-                    releaseCreated = _a.sent();
-                    if (!releaseCreated) return [3 /*break*/, 4];
-                    return [4 /*yield*/, Promise.all(getPlugins_1["default"]().map(function (plugin) {
-                            return plugin.afterCreateRelease(dryRun);
-                        }))];
                 case 3:
-                    _a.sent();
+                    releaseCreated = _e.sent();
+                    if (!releaseCreated) return [3 /*break*/, 6];
+                    _d = (_c = Promise).all;
+                    return [4 /*yield*/, getPlugins_1["default"]()];
+                case 4: return [4 /*yield*/, _d.apply(_c, [(_e.sent()).map(function (plugin) {
+                            return plugin.afterCreateRelease(dryRun);
+                        })])];
+                case 5:
+                    _e.sent();
                     console.log('[release] Finished');
                     process.exit();
-                    return [3 /*break*/, 5];
-                case 4:
+                    return [3 /*break*/, 7];
+                case 6:
                     console.log('[release] Nothing to do');
                     process.exit(1);
-                    _a.label = 5;
-                case 5: return [2 /*return*/];
+                    _e.label = 7;
+                case 7: return [2 /*return*/];
             }
         });
     });

@@ -61,7 +61,7 @@ export default async function createRelease(dryRun: boolean = false): Promise<vo
 	handleNetlifyGitSetup();
 
 	const checks: boolean[] = await Promise.all(
-		getPlugins().map(
+		(await getPlugins()).map(
 			(plugin: Plugin): Promise<boolean> => {
 				return plugin.beforeCreateRelease(dryRun);
 			}
@@ -77,7 +77,7 @@ export default async function createRelease(dryRun: boolean = false): Promise<vo
 
 	if (releaseCreated) {
 		await Promise.all(
-			getPlugins().map(
+			(await getPlugins()).map(
 				(plugin: Plugin): Promise<void> => {
 					return plugin.afterCreateRelease(dryRun);
 				}
