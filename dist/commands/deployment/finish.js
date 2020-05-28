@@ -39,13 +39,17 @@ exports.__esModule = true;
 var getPlugins_1 = require("../../base/getPlugins");
 function finishDeployment() {
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, Promise.all(getPlugins_1["default"]().map(function (plugin) {
-                        return plugin.afterDeploymentFinished();
-                    }))];
-                case 1:
-                    _a.sent();
+        var _a, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    _b = (_a = Promise).all;
+                    return [4 /*yield*/, getPlugins_1["default"]()];
+                case 1: return [4 /*yield*/, _b.apply(_a, [(_c.sent()).map(function (plugin) {
+                            return plugin.afterDeploymentFinished();
+                        })])];
+                case 2:
+                    _c.sent();
                     console.log('[complete-deployment] Finished');
                     return [2 /*return*/];
             }

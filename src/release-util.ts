@@ -45,8 +45,9 @@ deploymentCommand
 		});
 	});
 
-getPlugins().forEach((plugin: Plugin): void => plugin.init());
-
-program.parse(process.argv);
+getPlugins().then((plugins: Plugin[]): void => {
+	plugins.forEach((plugin: Plugin): void => plugin.init());
+	program.parse(process.argv);
+});
 
 export { createRelease, createDeployment, finishDeployment, program as default };
