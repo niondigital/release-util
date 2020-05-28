@@ -12,7 +12,7 @@ export default class SentryPlugin extends Plugin {
 	}
 
 	public init(): void {
-		console.log(`[${this.getName()}] Initialized`);
+		console.debug(`[${this.getName()}] Plugin initialized`);
 	}
 
 	public async beforeRelease(dryRun: boolean): Promise<boolean> {
