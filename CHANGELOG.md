@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/seibert-io/heyday-releases/compare/v1.4.0...v1.5.0) (2020-05-28)
+
+
+### Features
+
+* plugins ([1b6af26](https://github.com/seibert-io/heyday-releases/commit/1b6af26))
+
 # [1.4.0](https://github.com/seibert-io/heyday-releases/compare/v1.3.1...v1.4.0) (2020-05-27)
 
 
