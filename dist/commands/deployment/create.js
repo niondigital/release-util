@@ -45,7 +45,7 @@ function getDeploymentBranches() {
     }
     return process.env.DEPLOYMENT_BRANCHES.split(',').map(function (branch) { return branch.trim(); });
 }
-function deploy() {
+function createDeployment() {
     return __awaiter(this, void 0, void 0, function () {
         var deploymentBranches, gitTagOutput, releaseTagChoices, deployBranchName, tagName, currentBranchName, hasLocalChanges, statusResult;
         return __generator(this, function (_a) {
@@ -113,4 +113,4 @@ function deploy() {
         });
     });
 }
-exports["default"] = deploy;
+exports["default"] = createDeployment;

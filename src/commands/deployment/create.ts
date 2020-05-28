@@ -11,7 +11,7 @@ function getDeploymentBranches(): string[] {
 	return process.env.DEPLOYMENT_BRANCHES.split(',').map((branch: string): string => branch.trim());
 }
 
-export default async function deploy(): Promise<void> {
+export default async function createDeployment(): Promise<void> {
 	const deploymentBranches: string[] = getDeploymentBranches();
 
 	console.log(

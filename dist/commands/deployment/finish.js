@@ -36,13 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var getPlugins_1 = require("../base/getPlugins");
-function completeDeployment() {
+var getPlugins_1 = require("../../base/getPlugins");
+function finishDeployment() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, Promise.all(getPlugins_1["default"]().map(function (plugin) {
-                        return plugin.onDeploymentComplete();
+                        return plugin.afterDeploymentFinished();
                     }))];
                 case 1:
                     _a.sent();
@@ -52,4 +52,4 @@ function completeDeployment() {
         });
     });
 }
-exports.completeDeployment = completeDeployment;
+exports["default"] = finishDeployment;

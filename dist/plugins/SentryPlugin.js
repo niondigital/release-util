@@ -64,9 +64,9 @@ var SentryPlugin = /** @class */ (function (_super) {
         return 'heyday-release-sentry';
     };
     SentryPlugin.prototype.init = function () {
-        console.log("[" + this.getName() + "] Initialized");
+        console.debug("[" + this.getName() + "] Plugin initialized");
     };
-    SentryPlugin.prototype.beforeRelease = function (dryRun) {
+    SentryPlugin.prototype.beforeCreateRelease = function (dryRun) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, true];
@@ -77,7 +77,7 @@ var SentryPlugin = /** @class */ (function (_super) {
      * Notify Sentry of the new release so issues can be linked with releases
      * and commit suggestions can be made
      */
-    SentryPlugin.prototype.afterRelease = function (dryRun) {
+    SentryPlugin.prototype.afterCreateRelease = function (dryRun) {
         return __awaiter(this, void 0, void 0, function () {
             var currentVersion, sentryProject, releaseCommitRef;
             return __generator(this, function (_a) {
@@ -123,16 +123,16 @@ var SentryPlugin = /** @class */ (function (_super) {
     /**
      * Notify Sentry of a deployment of a release
      */
-    SentryPlugin.prototype.onDeploymentComplete = function () {
+    SentryPlugin.prototype.afterDeploymentFinished = function () {
         return __awaiter(this, void 0, void 0, function () {
             var packageJson, currentVersion;
             return __generator(this, function (_a) {
                 if (!this.isSentryEnabled()) {
-                    console.info('[complete-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
+                    console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
                     return [2 /*return*/];
                 }
                 if (process.env.SENTRY_NOTIFY_OF_DEPLOYMENT !== '1') {
-                    console.info('[complete-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
+                    console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
                     return [2 /*return*/];
                 }
                 console.log(chalk_1["default"].white('[complete-deployment] Notifying Sentry of release deployment...'));

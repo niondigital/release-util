@@ -1,9 +1,9 @@
 import * as shell from 'shelljs';
 import chalk from 'chalk';
 import * as semanticRelease from 'semantic-release';
-import { getSemanticReleaseOptions } from '../base/semantic-release';
-import Plugin from '../base/Plugin';
-import getPlugins from '../base/getPlugins';
+import { getSemanticReleaseOptions } from '../../base/semantic-release';
+import Plugin from '../../base/Plugin';
+import getPlugins from '../../base/getPlugins';
 
 /**
  * Create semantic release:
@@ -57,13 +57,13 @@ function handleNetlifyGitSetup(): void {
 	}
 }
 
-export default async function release(dryRun: boolean = false): Promise<void> {
+export default async function createRelease(dryRun: boolean = false): Promise<void> {
 	handleNetlifyGitSetup();
 
 	const checks: boolean[] = await Promise.all(
 		getPlugins().map(
 			(plugin: Plugin): Promise<boolean> => {
-				return plugin.beforeRelease(dryRun);
+				return plugin.beforeCreateRelease(dryRun);
 			}
 		)
 	);
@@ -79,7 +79,7 @@ export default async function release(dryRun: boolean = false): Promise<void> {
 		await Promise.all(
 			getPlugins().map(
 				(plugin: Plugin): Promise<void> => {
-					return plugin.afterRelease(dryRun);
+					return plugin.afterCreateRelease(dryRun);
 				}
 			)
 		);

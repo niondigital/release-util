@@ -15,7 +15,7 @@ export default class SentryPlugin extends Plugin {
 		console.debug(`[${this.getName()}] Plugin initialized`);
 	}
 
-	public async beforeRelease(dryRun: boolean): Promise<boolean> {
+	public async beforeCreateRelease(dryRun: boolean): Promise<boolean> {
 		return true;
 	}
 
@@ -23,7 +23,7 @@ export default class SentryPlugin extends Plugin {
 	 * Notify Sentry of the new release so issues can be linked with releases
 	 * and commit suggestions can be made
 	 */
-	public async afterRelease(dryRun: boolean): Promise<void> {
+	public async afterCreateRelease(dryRun: boolean): Promise<void> {
 		if (dryRun) return;
 
 		// only execute if sentry is enabled per environment config
@@ -79,17 +79,17 @@ export default class SentryPlugin extends Plugin {
 	/**
 	 * Notify Sentry of a deployment of a release
 	 */
-	public async onDeploymentComplete(): Promise<void> {
+	public async afterDeploymentFinished(): Promise<void> {
 		if (!this.isSentryEnabled()) {
 			console.info(
-				'[complete-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...'
+				'[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...'
 			);
 			return;
 		}
 
 		if (process.env.SENTRY_NOTIFY_OF_DEPLOYMENT !== '1') {
 			console.info(
-				'[complete-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...'
+				'[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...'
 			);
 			return;
 		}

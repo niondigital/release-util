@@ -6,37 +6,39 @@ var fs = require("fs");
 var path = require("path");
 var commander_1 = require("commander");
 exports["default"] = commander_1.program;
-var deploy_1 = require("./commands/deploy");
-exports.deploy = deploy_1["default"];
-var release_1 = require("./commands/release");
-exports.release = release_1["default"];
-var complete_deployment_1 = require("./commands/complete-deployment");
-exports.completeDeployment = complete_deployment_1.completeDeployment;
+var create_1 = require("./commands/deployment/create");
+exports.createDeployment = create_1["default"];
+var create_2 = require("./commands/release/create");
+exports.createRelease = create_2["default"];
+var finish_1 = require("./commands/deployment/finish");
+exports.finishDeployment = finish_1["default"];
 var getPlugins_1 = require("./base/getPlugins");
 var packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
 commander_1.program.version(packageJson.version, '-v, --version', 'output the current version');
-commander_1.program
-    .command('release')
+var releaseCommand = commander_1.program.command('release').description('Release operations');
+releaseCommand
+    .command('create')
     .option('-d, --dry-run', 'Perform a dry-run without creating a release')
     .description('Create a release in the current Git branch')
     .action(function (options) {
-    release_1["default"](!!options.dryRun)["catch"](function (error) {
+    create_2["default"](!!options.dryRun)["catch"](function (error) {
         console.error(error);
     });
 });
-commander_1.program
-    .command('deploy')
+var deploymentCommand = commander_1.program.command('deployment').description('Deployment operations');
+deploymentCommand
+    .command('create')
     .description('Create a deployment by merging a release into a deployment branch')
     .action(function () {
-    deploy_1["default"]()["catch"](function (error) {
+    create_1["default"]()["catch"](function (error) {
         console.error(error);
     });
 });
-commander_1.program
-    .command('complete-deployment')
-    .description('Mark a deployment as completed')
+deploymentCommand
+    .command('finish')
+    .description('Finish a deployment')
     .action(function () {
-    complete_deployment_1.completeDeployment()["catch"](function (error) {
+    finish_1["default"]()["catch"](function (error) {
         console.error(error);
     });
 });

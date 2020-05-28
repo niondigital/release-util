@@ -4,39 +4,43 @@ import '@madebyheyday/env-util';
 import * as fs from 'fs';
 import * as path from 'path';
 import { program } from 'commander';
-import deploy from './commands/deploy';
-import release from './commands/release';
-import { completeDeployment } from './commands/complete-deployment';
+import createDeployment from './commands/deployment/create';
+import createRelease from './commands/release/create';
+import finishDeployment from './commands/deployment/finish';
 import Plugin from './base/Plugin';
 import getPlugins from './base/getPlugins';
 
 const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
 program.version(packageJson.version, '-v, --version', 'output the current version');
 
-program
-	.command('release')
+const releaseCommand = program.command('release').description('Release operations');
+
+releaseCommand
+	.command('create')
 	.option('-d, --dry-run', 'Perform a dry-run without creating a release')
 	.description('Create a release in the current Git branch')
 	.action((options: any) => {
-		release(!!options.dryRun).catch((error: Error) => {
+		createRelease(!!options.dryRun).catch((error: Error) => {
 			console.error(error);
 		});
 	});
 
-program
-	.command('deploy')
+const deploymentCommand = program.command('deployment').description('Deployment operations');
+
+deploymentCommand
+	.command('create')
 	.description('Create a deployment by merging a release into a deployment branch')
 	.action(() => {
-		deploy().catch((error: Error) => {
+		createDeployment().catch((error: Error) => {
 			console.error(error);
 		});
 	});
 
-program
-	.command('complete-deployment')
-	.description('Mark a deployment as completed')
+deploymentCommand
+	.command('finish')
+	.description('Finish a deployment')
 	.action(() => {
-		completeDeployment().catch((error: Error) => {
+		finishDeployment().catch((error: Error) => {
 			console.error(error);
 		});
 	});
@@ -45,4 +49,4 @@ getPlugins().forEach((plugin: Plugin): void => plugin.init());
 
 program.parse(process.argv);
 
-export { release, deploy, completeDeployment, program as default };
+export { createRelease, createDeployment, finishDeployment, program as default };
