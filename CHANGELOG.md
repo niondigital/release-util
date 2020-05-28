@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/madebyheyday/release-util/compare/v1.0.4...v1.0.5) (2020-05-28)
+
+
+### Bug Fixes
+
+* env-util is a dev dep ([866728c](https://github.com/madebyheyday/release-util/commit/866728c))
+
 # [1.5.0](https://github.com/seibert-io/heyday-releases/compare/v1.4.0...v1.5.0) (2020-05-28)
 
 
