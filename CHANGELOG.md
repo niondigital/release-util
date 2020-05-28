@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/madebyheyday/release-util/compare/v1.0.10...v1.1.0) (2020-05-28)
+
+
+### Features
+
+* sentry commands ([4b60375](https://github.com/madebyheyday/release-util/commit/4b60375))
+
 ## [1.0.10](https://github.com/madebyheyday/release-util/compare/v1.0.9...v1.0.10) (2020-05-28)
 
 
