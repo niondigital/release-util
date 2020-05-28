@@ -58,6 +58,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:seibert-io/heyday-releases.git"
+		"url": "git@github.com:madebyheyday/release-util.git"
 	}
 }
