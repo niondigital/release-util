@@ -3,7 +3,7 @@
 import '@madebyheyday/env-util';
 import * as fs from 'fs';
 import * as path from 'path';
-import { program } from 'commander';
+import * as program from 'commander';
 import createDeployment from './commands/deployment/create';
 import createRelease from './commands/release/create';
 import finishDeployment from './commands/deployment/finish';
@@ -46,7 +46,7 @@ deploymentCommand
 	});
 
 getPlugins().then((plugins: Plugin[]): void => {
-	plugins.forEach((plugin: Plugin): void => plugin.init());
+	plugins.forEach((plugin: Plugin): void => plugin.init(program));
 	program.parse(process.argv);
 });
 

@@ -4,8 +4,8 @@ exports.__esModule = true;
 require("@madebyheyday/env-util");
 var fs = require("fs");
 var path = require("path");
-var commander_1 = require("commander");
-exports["default"] = commander_1.program;
+var program = require("commander");
+exports["default"] = program;
 var create_1 = require("./commands/deployment/create");
 exports.createDeployment = create_1["default"];
 var create_2 = require("./commands/release/create");
@@ -14,8 +14,8 @@ var finish_1 = require("./commands/deployment/finish");
 exports.finishDeployment = finish_1["default"];
 var getPlugins_1 = require("./base/getPlugins");
 var packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
-commander_1.program.version(packageJson.version, '-v, --version', 'output the current version');
-var releaseCommand = commander_1.program.command('release').description('Release operations');
+program.version(packageJson.version, '-v, --version', 'output the current version');
+var releaseCommand = program.command('release').description('Release operations');
 releaseCommand
     .command('create')
     .option('-d, --dry-run', 'Perform a dry-run without creating a release')
@@ -25,7 +25,7 @@ releaseCommand
         console.error(error);
     });
 });
-var deploymentCommand = commander_1.program.command('deployment').description('Deployment operations');
+var deploymentCommand = program.command('deployment').description('Deployment operations');
 deploymentCommand
     .command('create')
     .description('Create a deployment by merging a release into a deployment branch')
@@ -43,6 +43,6 @@ deploymentCommand
     });
 });
 getPlugins_1["default"]().then(function (plugins) {
-    plugins.forEach(function (plugin) { return plugin.init(); });
-    commander_1.program.parse(process.argv);
+    plugins.forEach(function (plugin) { return plugin.init(program); });
+    program.parse(process.argv);
 });

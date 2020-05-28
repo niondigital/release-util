@@ -1,7 +1,8 @@
 import Plugin from '../base/Plugin';
+import * as program from 'commander';
 export default class SentryPlugin extends Plugin {
     getName(): string;
-    init(): void;
+    init(program: program.Command): void;
     beforeCreateRelease(dryRun: boolean): Promise<boolean>;
     /**
      * Notify Sentry of the new release so issues can be linked with releases

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import '@madebyheyday/env-util';
-import { program } from 'commander';
+import * as program from 'commander';
 import createDeployment from './commands/deployment/create';
 import createRelease from './commands/release/create';
 import finishDeployment from './commands/deployment/finish';

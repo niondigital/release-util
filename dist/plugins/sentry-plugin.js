@@ -63,8 +63,26 @@ var SentryPlugin = /** @class */ (function (_super) {
     SentryPlugin.prototype.getName = function () {
         return 'heyday-release-sentry';
     };
-    SentryPlugin.prototype.init = function () {
+    SentryPlugin.prototype.init = function (program) {
+        var _this = this;
         console.debug("[" + this.getName() + "] Plugin initialized");
+        var sentryCommand = program.command('sentry').description('Sentry operations');
+        sentryCommand
+            .command('create-deployment')
+            .description('Notify sentry of a deployment')
+            .action(function () {
+            _this.afterDeploymentFinished()["catch"](function (error) {
+                console.error(error);
+            });
+        });
+        sentryCommand
+            .command('create-release')
+            .description('Notify sentry of a release')
+            .action(function () {
+            _this.afterCreateRelease(false)["catch"](function (error) {
+                console.error(error);
+            });
+        });
     };
     SentryPlugin.prototype.beforeCreateRelease = function (dryRun) {
         return __awaiter(this, void 0, void 0, function () {
