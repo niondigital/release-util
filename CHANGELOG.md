@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/madebyheyday/release-util/compare/v1.0.5...v1.0.6) (2020-05-28)
+
+
+### Bug Fixes
+
+* sentry cli is a dev dep ([cadac01](https://github.com/madebyheyday/release-util/commit/cadac01))
+
 ## [1.0.5](https://github.com/madebyheyday/release-util/compare/v1.0.4...v1.0.5) (2020-05-28)
 
 
