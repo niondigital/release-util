@@ -10,6 +10,7 @@
 		"release-util": "dist/release-util.js"
 	},
 	"dependencies": {
+		"@madebyheyday/env-util": "^1.0.0",
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v1.0.5",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/commit-analyzer": "^8.0.1",
@@ -31,7 +32,6 @@
 	"devDependencies": {
 		"@commitlint/cli": "8.2.0",
 		"@commitlint/config-conventional": "8.2.0",
-		"@madebyheyday/env-util": "^1.0.0",
 		"@sentry/cli": "^1.52.3",
 		"@types/app-root-path": "^1.2.4",
 		"@types/chalk": "2.2.0",
