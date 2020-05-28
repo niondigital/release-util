@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as shell from 'shelljs';
 import chalk from 'chalk';
 import Plugin from '../base/Plugin';
+import * as program from 'commander'; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -11,8 +12,28 @@ export default class SentryPlugin extends Plugin {
 		return 'heyday-release-sentry';
 	}
 
-	public init(): void {
+	public init(program: program.Command): void {
 		console.debug(`[${this.getName()}] Plugin initialized`);
+
+		const sentryCommand = program.command('sentry').description('Sentry operations');
+
+		sentryCommand
+			.command('create-deployment')
+			.description('Notify sentry of a deployment')
+			.action(() => {
+				this.afterDeploymentFinished().catch((error: Error) => {
+					console.error(error);
+				});
+			});
+
+		sentryCommand
+			.command('create-release')
+			.description('Notify sentry of a release')
+			.action(() => {
+				this.afterCreateRelease(false).catch((error: Error) => {
+					console.error(error);
+				});
+			});
 	}
 
 	public async beforeCreateRelease(dryRun: boolean): Promise<boolean> {
