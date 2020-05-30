@@ -2,6 +2,10 @@ import * as shell from 'shelljs';
 import * as inquirer from 'inquirer';
 import chalk from 'chalk';
 
+function log(message: string): void {
+	console.log(`${chalk.gray('[createDeployment]')} ${message}`);
+}
+
 function getDeploymentBranches(): string[] {
 	if (!process.env.DEPLOYMENT_BRANCHES) {
 		throw new Error(
@@ -44,7 +48,7 @@ export default async function createDeployment(): Promise<void> {
 		});
 
 	if (releaseTagChoices.length === 0) {
-		console.log(`${chalk.red('Error')} No release exist that could be deployed.`);
+		log(chalk.red('Error: No release exist that could be deployed.'));
 		return;
 	}
 
@@ -72,18 +76,28 @@ export default async function createDeployment(): Promise<void> {
 	let hasLocalChanges: boolean = false;
 	const statusResult: shell.ShellString = shell.exec('git status --porcelain');
 	hasLocalChanges = statusResult.stdout.split('\n').length > 1;
-	if (hasLocalChanges) shell.exec('git stash');
+	if (hasLocalChanges) {
+		log('Stashing local changes...');
+		shell.exec('git stash');
+	}
 
+	log(`Checking out branch '${deployBranchName}'...`);
 	shell.exec(`git checkout ${deployBranchName}`);
 
+	log(`Resetting branch to '${tagName}'...`);
 	shell.exec(`git reset --hard ${tagName}`);
 
+	log('Performing force push...');
 	shell.exec('git push --force');
 
 	if (deployBranchName !== currentBranchName) {
+		log(`Checking out branch '${currentBranchName}'...`);
 		shell.exec(`git checkout ${currentBranchName}`);
-		if (hasLocalChanges) shell.exec('git stash pop');
+		if (hasLocalChanges) {
+			log('Applying previously stashed local changes...');
+			shell.exec('git stash pop');
+		}
 	}
 
-	console.log('[deploy] Finished');
+	log(chalk.greenBright('Finished'));
 }

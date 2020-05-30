@@ -9,8 +9,13 @@ import createRelease from './commands/release/create';
 import finishDeployment from './commands/deployment/finish';
 import Plugin from './base/Plugin';
 import getPlugins from './base/getPlugins';
+import chalk from 'chalk';
 
 const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
+
+console.log();
+console.log(chalk.gray('[heyday-release]'), chalk.white(`version ${packageJson.version}`));
+
 program.version(packageJson.version, '-v, --version', 'output the current version');
 
 const releaseCommand = program.command('release').description('Release operations');
@@ -47,6 +52,7 @@ deploymentCommand
 
 getPlugins().then((plugins: Plugin[]): void => {
 	plugins.forEach((plugin: Plugin): void => plugin.init(program));
+	console.log();
 	program.parse(process.argv);
 });
 

@@ -65,7 +65,6 @@ var SentryPlugin = /** @class */ (function (_super) {
     };
     SentryPlugin.prototype.init = function (program) {
         var _this = this;
-        console.debug("[" + this.getName() + "] Plugin initialized");
         var sentryCommand = program.command('sentry').description('Sentry operations');
         sentryCommand
             .command('create-deployment')
@@ -83,6 +82,7 @@ var SentryPlugin = /** @class */ (function (_super) {
                 console.error(error);
             });
         });
+        this.log('Plugin initialized');
     };
     SentryPlugin.prototype.beforeCreateRelease = function (dryRun) {
         return __awaiter(this, void 0, void 0, function () {
@@ -103,12 +103,12 @@ var SentryPlugin = /** @class */ (function (_super) {
                     return [2 /*return*/];
                 // only execute if sentry is enabled per environment config
                 if (!this.isSentryEnabled()) {
-                    console.info('Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...');
+                    this.log(chalk_1["default"].yellow('Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...'));
                     return [2 /*return*/];
                 }
-                console.log(chalk_1["default"].white('[release] Starting Sentry release...'));
+                this.log(chalk_1["default"].white('Sentry is enabled - starting Sentry release...'));
                 currentVersion = process.env.npm_package_name + "@" + process.env.npm_package_version;
-                console.log(chalk_1["default"].white("[release] Sentry release version: " + currentVersion));
+                this.log(chalk_1["default"].white("Sentry release version: " + currentVersion));
                 if (!process.env.SENTRY_AUTH_TOKEN) {
                     throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
                 }
@@ -131,9 +131,9 @@ var SentryPlugin = /** @class */ (function (_super) {
                     shell.exec("sentry-cli releases set-commits \"" + currentVersion + "\" --commit \"" + process.env.SENTRY_REPOSITORY_ID + "@" + releaseCommitRef + "\"", { silent: false });
                 }
                 else {
-                    console.info('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...');
+                    this.log(chalk_1["default"].yellow('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...'));
                 }
-                console.log(chalk_1["default"].greenBright('[release] Sentry release completed'));
+                this.log(chalk_1["default"].greenBright('Sentry release completed'));
                 return [2 /*return*/];
             });
         });
@@ -168,6 +168,9 @@ var SentryPlugin = /** @class */ (function (_super) {
     };
     SentryPlugin.prototype.isSentryEnabled = function () {
         return !['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase());
+    };
+    SentryPlugin.prototype.log = function (message) {
+        console.log(chalk_1["default"].gray("[" + this.getName() + "]") + " " + message);
     };
     return SentryPlugin;
 }(Plugin_1["default"]));

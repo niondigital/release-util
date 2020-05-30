@@ -13,8 +13,6 @@ export default class SentryPlugin extends Plugin {
 	}
 
 	public init(program: program.Command): void {
-		console.debug(`[${this.getName()}] Plugin initialized`);
-
 		const sentryCommand = program.command('sentry').description('Sentry operations');
 
 		sentryCommand
@@ -34,6 +32,8 @@ export default class SentryPlugin extends Plugin {
 					console.error(error);
 				});
 			});
+
+		this.log('Plugin initialized');
 	}
 
 	public async beforeCreateRelease(dryRun: boolean): Promise<boolean> {
@@ -49,16 +49,18 @@ export default class SentryPlugin extends Plugin {
 
 		// only execute if sentry is enabled per environment config
 		if (!this.isSentryEnabled()) {
-			console.info(
-				'Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...'
+			this.log(
+				chalk.yellow(
+					'Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...'
+				)
 			);
 			return;
 		}
 
-		console.log(chalk.white('[release] Starting Sentry release...'));
+		this.log(chalk.white('Sentry is enabled - starting Sentry release...'));
 
 		const currentVersion = `${process.env.npm_package_name}@${process.env.npm_package_version}`;
-		console.log(chalk.white(`[release] Sentry release version: ${currentVersion}`));
+		this.log(chalk.white(`Sentry release version: ${currentVersion}`));
 
 		if (!process.env.SENTRY_AUTH_TOKEN) {
 			throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
@@ -92,9 +94,9 @@ export default class SentryPlugin extends Plugin {
 				{ silent: false }
 			);
 		} else {
-			console.info('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...');
+			this.log(chalk.yellow('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...'));
 		}
-		console.log(chalk.greenBright('[release] Sentry release completed'));
+		this.log(chalk.greenBright('Sentry release completed'));
 	}
 
 	/**
@@ -135,6 +137,10 @@ export default class SentryPlugin extends Plugin {
 
 	private isSentryEnabled(): boolean {
 		return !['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase());
+	}
+
+	private log(message: string): void {
+		console.log(`${chalk.gray(`[${this.getName()}]`)} ${message}`);
 	}
 }
 
