@@ -13,7 +13,10 @@ exports.createRelease = create_2["default"];
 var finish_1 = require("./commands/deployment/finish");
 exports.finishDeployment = finish_1["default"];
 var getPlugins_1 = require("./base/getPlugins");
+var chalk_1 = require("chalk");
 var packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
+console.log();
+console.log(chalk_1["default"].gray('[heyday-release]'), chalk_1["default"].white("version " + packageJson.version));
 program.version(packageJson.version, '-v, --version', 'output the current version');
 var releaseCommand = program.command('release').description('Release operations');
 releaseCommand
@@ -44,5 +47,6 @@ deploymentCommand
 });
 getPlugins_1["default"]().then(function (plugins) {
     plugins.forEach(function (plugin) { return plugin.init(program); });
+    console.log();
     program.parse(process.argv);
 });

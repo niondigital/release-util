@@ -14,4 +14,5 @@ export default class SentryPlugin extends Plugin {
      */
     afterDeploymentFinished(): Promise<void>;
     private isSentryEnabled;
+    private log;
 }

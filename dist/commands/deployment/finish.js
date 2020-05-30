@@ -37,6 +37,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var getPlugins_1 = require("../../base/getPlugins");
+var chalk_1 = require("chalk");
+function log(message) {
+    console.log(chalk_1["default"].gray('[finishDeployment]') + " " + message);
+}
 function finishDeployment() {
     return __awaiter(this, void 0, void 0, function () {
         var _a, _b;
@@ -50,7 +54,7 @@ function finishDeployment() {
                         })])];
                 case 2:
                     _c.sent();
-                    console.log('[complete-deployment] Finished');
+                    log(chalk_1["default"].greenBright('Finished'));
                     return [2 /*return*/];
             }
         });

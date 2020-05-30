@@ -39,6 +39,9 @@ exports.__esModule = true;
 var shell = require("shelljs");
 var inquirer = require("inquirer");
 var chalk_1 = require("chalk");
+function log(message) {
+    console.log(chalk_1["default"].gray('[createDeployment]') + " " + message);
+}
 function getDeploymentBranches() {
     if (!process.env.DEPLOYMENT_BRANCHES) {
         throw new Error('Please specify a comma-separated list of deployment branches via environment variable DEPLOYMENT_BRANCHES');
@@ -69,7 +72,7 @@ function createDeployment() {
                         };
                     });
                     if (releaseTagChoices.length === 0) {
-                        console.log(chalk_1["default"].red('Error') + " No release exist that could be deployed.");
+                        log(chalk_1["default"].red('Error: No release exist that could be deployed.'));
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, inquirer.prompt([
@@ -97,17 +100,25 @@ function createDeployment() {
                     hasLocalChanges = false;
                     statusResult = shell.exec('git status --porcelain');
                     hasLocalChanges = statusResult.stdout.split('\n').length > 1;
-                    if (hasLocalChanges)
+                    if (hasLocalChanges) {
+                        log('Stashing local changes...');
                         shell.exec('git stash');
+                    }
+                    log("Checking out branch '" + deployBranchName + "'...");
                     shell.exec("git checkout " + deployBranchName);
+                    log("Resetting branch to '" + tagName + "'...");
                     shell.exec("git reset --hard " + tagName);
+                    log('Performing force push...');
                     shell.exec('git push --force');
                     if (deployBranchName !== currentBranchName) {
+                        log("Checking out branch '" + currentBranchName + "'...");
                         shell.exec("git checkout " + currentBranchName);
-                        if (hasLocalChanges)
+                        if (hasLocalChanges) {
+                            log('Applying previously stashed local changes...');
                             shell.exec('git stash pop');
+                        }
                     }
-                    console.log('[deploy] Finished');
+                    log(chalk_1["default"].greenBright('Finished'));
                     return [2 /*return*/];
             }
         });

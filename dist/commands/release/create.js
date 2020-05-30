@@ -47,11 +47,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var shell = require("shelljs");
 var chalk_1 = require("chalk");
 var semanticRelease = require("semantic-release");
 var semantic_release_1 = require("../../base/semantic-release");
 var getPlugins_1 = require("../../base/getPlugins");
+function log(message) {
+    console.log(chalk_1["default"].gray('[createRelease]') + " " + message);
+}
 /**
  * Create semantic release:
  * - Updates Changelog
@@ -64,49 +66,18 @@ function executeSemanticRelease(dryRun) {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    console.log(chalk_1["default"].white('[release] Starting semantic release...'));
-                    return [4 /*yield*/, semanticRelease(__assign(__assign({}, semantic_release_1.getSemanticReleaseOptions()), { dryRun: dryRun }))];
+                case 0: return [4 /*yield*/, semanticRelease(__assign(__assign({}, semantic_release_1.getSemanticReleaseOptions()), { dryRun: dryRun }))];
                 case 1:
                     result = _a.sent();
                     if (!result || result.lastRelease.version === result.nextRelease.version) {
-                        console.log(chalk_1["default"].yellow('[release] No release created'));
+                        log(chalk_1["default"].yellow('No release created'));
                         return [2 /*return*/, false];
                     }
-                    console.log(chalk_1["default"].greenBright("[release] Release created: " + result.nextRelease.version));
+                    log(chalk_1["default"].greenBright("Release created: " + result.nextRelease.version));
                     return [2 /*return*/, true];
             }
         });
     });
-}
-/**
- * Netlify only clones the repo as a shallow copy. If we're in a Netlify build context, the current working branch reported by Git will be != process.env.BRANCH reported by Netlify.
- * We will need to switch to the real branch first to make a release commit in the process.env.BRANCH branch.
- * The commit we're releasing for is provided by Netlify in env.COMMIT_REF, so we will also reset the build branch to this commit
- *
- * !Warning! Don't try this locally - this will meddle with your local git repo!
- * If you absolutely must enforce using this locally (by setting env.NETLIFY, env.BRANCH and env.COMMIT_REF):
- * Always explicitly reset the release branch to HEAD and switch back to our working branch afterwards.
- * Seriously.
- */
-function handleNetlifyGitSetup() {
-    // only operate in Netlify build context
-    if (!process.env.NETLIFY || !process.env.BRANCH || !process.env.COMMIT_REF)
-        return;
-    // working dir branch = branch reported by git (in Netlify this will be a commit, not a branch)
-    var workdirBranch = shell
-        .exec('git rev-parse --abbrev-ref HEAD', { silent: true })
-        .toString()
-        .replace(/(\n|\r)/, '');
-    // build branch as provided in env by Netlify, working dir branch as a fallback (= working dir is on a real branch)
-    var buildBranch = process.env.BRANCH || workdirBranch;
-    // ! Kids, don't try this at home - this will meddle with your local git repo!
-    // !
-    if (workdirBranch !== buildBranch) {
-        // env.BRANCH is different from what Git reports as being the current branch
-        shell.exec("git branch -f " + buildBranch + " " + process.env.COMMIT_REF, { silent: true });
-        shell.exec("git checkout " + buildBranch, { silent: true });
-    }
 }
 function createRelease(dryRun) {
     if (dryRun === void 0) { dryRun = false; }
@@ -115,7 +86,7 @@ function createRelease(dryRun) {
         return __generator(this, function (_e) {
             switch (_e.label) {
                 case 0:
-                    handleNetlifyGitSetup();
+                    log('Creating release...');
                     _b = (_a = Promise).all;
                     return [4 /*yield*/, getPlugins_1["default"]()];
                 case 1: return [4 /*yield*/, _b.apply(_a, [(_e.sent()).map(function (plugin) {
@@ -124,7 +95,7 @@ function createRelease(dryRun) {
                 case 2:
                     checks = _e.sent();
                     if (checks.includes(false)) {
-                        console.log('[release] Release Prevented by plugin');
+                        log(chalk_1["default"].white('Release Prevented by plugin'));
                     }
                     return [4 /*yield*/, executeSemanticRelease(dryRun)];
                 case 3:
@@ -137,11 +108,11 @@ function createRelease(dryRun) {
                         })])];
                 case 5:
                     _e.sent();
-                    console.log('[release] Finished');
+                    log(chalk_1["default"].greenBright('Finished'));
                     process.exit();
                     return [3 /*break*/, 7];
                 case 6:
-                    console.log('[release] Nothing to do');
+                    log('Finished');
                     process.exit(1);
                     _e.label = 7;
                 case 7: return [2 /*return*/];
