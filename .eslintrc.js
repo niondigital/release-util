@@ -1,1 +1,1 @@
-module.exports = require('@madebyheyday/linting-base/eslint.config.js');
+module.exports = require('./node_modules/@madebyheyday/linting-base/src/eslint.config');
