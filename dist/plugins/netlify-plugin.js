@@ -61,7 +61,7 @@ var NetlifyPlugin = /** @class */ (function (_super) {
     NetlifyPlugin.prototype.getName = function () {
         return 'heyday-release-netlify';
     };
-    NetlifyPlugin.prototype.init = function (program) {
+    NetlifyPlugin.prototype.init = function (rootProgram) {
         this.log('Plugin initialized');
     };
     /**
@@ -106,17 +106,21 @@ var NetlifyPlugin = /** @class */ (function (_super) {
      * and commit suggestions can be made
      */
     NetlifyPlugin.prototype.afterCreateRelease = function (dryRun) {
-        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-            return [2 /*return*/];
-        }); });
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
     };
     /**
      * Notify Sentry of a deployment of a release
      */
     NetlifyPlugin.prototype.afterDeploymentFinished = function () {
-        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-            return [2 /*return*/];
-        }); });
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
     };
     NetlifyPlugin.prototype.log = function (message) {
         console.log(chalk_1["default"].gray("[" + this.getName() + "]") + " " + message);

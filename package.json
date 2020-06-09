@@ -28,7 +28,7 @@
 		"shelljs": "0.8.3"
 	},
 	"devDependencies": {
-		"@madebyheyday/linting-base": "^1.1.12",
+		"@madebyheyday/linting-base": "^1.1.17",
 		"@types/app-root-path": "^1.2.4",
 		"@types/chalk": "2.2.0",
 		"@types/inquirer": "^6.5.0",

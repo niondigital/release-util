@@ -49,8 +49,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var fs = require("fs");
-var path = require("path");
 var shell = require("shelljs");
 var chalk_1 = require("chalk");
 var Plugin_1 = require("../base/Plugin");
@@ -63,9 +61,9 @@ var SentryPlugin = /** @class */ (function (_super) {
     SentryPlugin.prototype.getName = function () {
         return 'heyday-release-sentry';
     };
-    SentryPlugin.prototype.init = function (program) {
+    SentryPlugin.prototype.init = function (rootProgram) {
         var _this = this;
-        var sentryCommand = program.command('sentry').description('Sentry operations');
+        var sentryCommand = rootProgram.command('sentry').description('Sentry operations');
         sentryCommand
             .command('create-deployment')
             .description('Notify sentry of a deployment')
@@ -127,7 +125,7 @@ var SentryPlugin = /** @class */ (function (_super) {
                     releaseCommitRef = shell
                         .exec('git log -1 --format="%H"', { silent: true })
                         .toString()
-                        .replace(/(\n|\r)/, '');
+                        .replace(/([\n\r])/, '');
                     shell.exec("sentry-cli releases set-commits \"" + currentVersion + "\" --commit \"" + process.env.SENTRY_REPOSITORY_ID + "@" + releaseCommitRef + "\"", { silent: false });
                 }
                 else {
@@ -143,7 +141,7 @@ var SentryPlugin = /** @class */ (function (_super) {
      */
     SentryPlugin.prototype.afterDeploymentFinished = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var packageJson, currentVersion;
+            var currentVersion;
             return __generator(this, function (_a) {
                 if (!this.isSentryEnabled()) {
                     console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
@@ -154,8 +152,7 @@ var SentryPlugin = /** @class */ (function (_super) {
                     return [2 /*return*/];
                 }
                 console.log(chalk_1["default"].white('[complete-deployment] Notifying Sentry of release deployment...'));
-                packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
-                currentVersion = packageJson.name + "@" + packageJson.version;
+                currentVersion = process.env.npm_package_name + "@" + process.env.npm_package_version;
                 console.log(chalk_1["default"].white("[complete-deployment] Sentry release version to deploy: " + currentVersion));
                 shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';

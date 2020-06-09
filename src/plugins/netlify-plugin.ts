@@ -1,7 +1,7 @@
 import * as shell from 'shelljs';
 import chalk from 'chalk';
-import Plugin from '../base/Plugin';
 import * as program from 'commander'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import Plugin from '../base/Plugin';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -10,7 +10,7 @@ export default class NetlifyPlugin extends Plugin {
 		return 'heyday-release-netlify';
 	}
 
-	public init(program: program.Command): void {
+	public init(rootProgram: program.Command): void {
 		this.log('Plugin initialized');
 	}
 
@@ -37,7 +37,7 @@ export default class NetlifyPlugin extends Plugin {
 		const workdirBranch = shell
 			.exec('git rev-parse --abbrev-ref HEAD', { silent: true })
 			.toString()
-			.replace(/(\n|\r)/, '');
+			.replace(/([\n\r])/, '');
 
 		// build branch as provided in env by Netlify, working dir branch as a fallback (= working dir is on a real branch)
 		const buildBranch = process.env.BRANCH || workdirBranch;
