@@ -129,6 +129,19 @@ export default class SentryPlugin extends Plugin {
 			{ silent: false }
 		);
 
+		if (process.env.SENTRY_REPOSITORY_ID) {
+			// Associate latest commit with the release
+			const releaseCommitRef = shell
+				.exec('git log -1 --format="%H"', { silent: true })
+				.toString()
+				.replace(/(\[n|\r])/, '');
+
+			shell.exec(
+				`sentry-cli releases set-commits "${currentVersion}" --commit "${process.env.SENTRY_REPOSITORY_ID}@${releaseCommitRef}"`,
+				{ silent: false }
+			);
+		}
+
 		console.log(chalk.greenBright('[complete-deployment] Sentry release deployment completed'));
 	}
 

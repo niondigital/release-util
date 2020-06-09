@@ -141,7 +141,7 @@ var SentryPlugin = /** @class */ (function (_super) {
      */
     SentryPlugin.prototype.afterDeploymentFinished = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var currentVersion;
+            var currentVersion, releaseCommitRef;
             return __generator(this, function (_a) {
                 if (!SentryPlugin.isSentryEnabled()) {
                     console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
@@ -158,6 +158,13 @@ var SentryPlugin = /** @class */ (function (_super) {
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
                 // Notify of release deployment
                 shell.exec("sentry-cli releases deploys \"" + currentVersion + "\" new -e \"" + process.env.SENTRY_ENVIRONMENT + "\" -u \"" + process.env.DEPLOY_URL + "\"", { silent: false });
+                if (process.env.SENTRY_REPOSITORY_ID) {
+                    releaseCommitRef = shell
+                        .exec('git log -1 --format="%H"', { silent: true })
+                        .toString()
+                        .replace(/(\[n|\r])/, '');
+                    shell.exec("sentry-cli releases set-commits \"" + currentVersion + "\" --commit \"" + process.env.SENTRY_REPOSITORY_ID + "@" + releaseCommitRef + "\"", { silent: false });
+                }
                 console.log(chalk_1["default"].greenBright('[complete-deployment] Sentry release deployment completed'));
                 return [2 /*return*/];
             });
