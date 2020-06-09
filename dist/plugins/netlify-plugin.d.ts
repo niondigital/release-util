@@ -2,7 +2,7 @@ import Plugin from '../base/Plugin';
 import * as program from 'commander';
 export default class NetlifyPlugin extends Plugin {
     getName(): string;
-    init(program: program.Command): void;
+    init(rootProgram: program.Command): void;
     /**
      * Netlify only clones the repo as a shallow copy. If we're in a Netlify build context, the current working branch reported by Git will be != process.env.BRANCH reported by Netlify.
      * We will need to switch to the real branch first to make a release commit in the process.env.BRANCH branch.

@@ -1,9 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import * as shell from 'shelljs';
 import chalk from 'chalk';
-import Plugin from '../base/Plugin';
 import * as program from 'commander'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import Plugin from '../base/Plugin';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -12,8 +10,8 @@ export default class SentryPlugin extends Plugin {
 		return 'heyday-release-sentry';
 	}
 
-	public init(program: program.Command): void {
-		const sentryCommand = program.command('sentry').description('Sentry operations');
+	public init(rootProgram: program.Command): void {
+		const sentryCommand = rootProgram.command('sentry').description('Sentry operations');
 
 		sentryCommand
 			.command('create-deployment')
@@ -48,7 +46,7 @@ export default class SentryPlugin extends Plugin {
 		if (dryRun) return;
 
 		// only execute if sentry is enabled per environment config
-		if (!this.isSentryEnabled()) {
+		if (!SentryPlugin.isSentryEnabled()) {
 			this.log(
 				chalk.yellow(
 					'Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...'
@@ -87,7 +85,7 @@ export default class SentryPlugin extends Plugin {
 			const releaseCommitRef = shell
 				.exec('git log -1 --format="%H"', { silent: true })
 				.toString()
-				.replace(/(\n|\r)/, '');
+				.replace(/([\n\r])/, '');
 
 			shell.exec(
 				`sentry-cli releases set-commits "${currentVersion}" --commit "${process.env.SENTRY_REPOSITORY_ID}@${releaseCommitRef}"`,
@@ -103,7 +101,7 @@ export default class SentryPlugin extends Plugin {
 	 * Notify Sentry of a deployment of a release
 	 */
 	public async afterDeploymentFinished(): Promise<void> {
-		if (!this.isSentryEnabled()) {
+		if (!SentryPlugin.isSentryEnabled()) {
 			console.info(
 				'[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...'
 			);
@@ -119,8 +117,7 @@ export default class SentryPlugin extends Plugin {
 
 		console.log(chalk.white('[complete-deployment] Notifying Sentry of release deployment...'));
 
-		const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
-		const currentVersion = `${packageJson.name}@${packageJson.version}`;
+		const currentVersion = `${process.env.npm_package_name}@${process.env.npm_package_version}`;
 		console.log(chalk.white(`[complete-deployment] Sentry release version to deploy: ${currentVersion}`));
 
 		shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
@@ -135,7 +132,7 @@ export default class SentryPlugin extends Plugin {
 		console.log(chalk.greenBright('[complete-deployment] Sentry release deployment completed'));
 	}
 
-	private isSentryEnabled(): boolean {
+	private static isSentryEnabled(): boolean {
 		return !['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase());
 	}
 
