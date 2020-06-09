@@ -1,3 +1,11 @@
+## [1.1.3](https://github.com/madebyheyday/release-util/compare/v1.1.2...v1.1.3) (2020-06-09)
+
+
+### Bug Fixes
+
+* **sentry-plugin:** use package version from env variables instead of package.json ([02c2962](https://github.com/madebyheyday/release-util/commit/02c2962))
+* **sentry-plugin:** use package version from env variables instead of package.json ([bd3db57](https://github.com/madebyheyday/release-util/commit/bd3db57))
+
 ## [1.1.2](https://github.com/madebyheyday/release-util/compare/v1.1.1...v1.1.2) (2020-06-03)
 
 ## [1.1.1](https://github.com/madebyheyday/release-util/compare/v1.1.0...v1.1.1) (2020-05-30)
