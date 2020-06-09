@@ -87,7 +87,7 @@ var NetlifyPlugin = /** @class */ (function (_super) {
                 workdirBranch = shell
                     .exec('git rev-parse --abbrev-ref HEAD', { silent: true })
                     .toString()
-                    .replace(/(\n|\r)/, '');
+                    .replace(/([\n\r])/, '');
                 buildBranch = process.env.BRANCH || workdirBranch;
                 // ! Kids, don't try this at home - this will meddle with your local git repo!
                 if (workdirBranch !== buildBranch) {
