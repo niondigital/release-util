@@ -100,7 +100,7 @@ var SentryPlugin = /** @class */ (function (_super) {
                 if (dryRun)
                     return [2 /*return*/];
                 // only execute if sentry is enabled per environment config
-                if (!this.isSentryEnabled()) {
+                if (!SentryPlugin.isSentryEnabled()) {
                     this.log(chalk_1["default"].yellow('Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...'));
                     return [2 /*return*/];
                 }
@@ -143,7 +143,7 @@ var SentryPlugin = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             var currentVersion;
             return __generator(this, function (_a) {
-                if (!this.isSentryEnabled()) {
+                if (!SentryPlugin.isSentryEnabled()) {
                     console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
                     return [2 /*return*/];
                 }
@@ -163,7 +163,7 @@ var SentryPlugin = /** @class */ (function (_super) {
             });
         });
     };
-    SentryPlugin.prototype.isSentryEnabled = function () {
+    SentryPlugin.isSentryEnabled = function () {
         return !['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase());
     };
     SentryPlugin.prototype.log = function (message) {

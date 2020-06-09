@@ -13,6 +13,6 @@ export default class SentryPlugin extends Plugin {
      * Notify Sentry of a deployment of a release
      */
     afterDeploymentFinished(): Promise<void>;
-    private isSentryEnabled;
+    private static isSentryEnabled;
     private log;
 }
