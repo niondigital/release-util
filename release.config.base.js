@@ -16,7 +16,17 @@ module.exports = {
 		}
 	],
 	verifyConditions: ['@semantic-release/changelog', '@semantic-release/git', '@semantic-release/github'],
-	success: ['@semantic-release/github', 'semantic-release-slack-bot'],
+	success: [
+		'@semantic-release/github',
+		[
+			'semantic-release-slack-bot',
+			{
+				notifyOnSuccess: true,
+				notifyOnFail: true,
+				markdownReleaseNotes: true
+			}
+		]
+	],
 	plugins: [
 		[
 			'@semantic-release/commit-analyzer',
@@ -63,13 +73,6 @@ module.exports = {
 			}
 		],
 		'@semantic-release/github',
-		[
-			'semantic-release-slack-bot',
-			{
-				notifyOnSuccess: true,
-				notifyOnFail: true,
-				markdownReleaseNotes: true
-			}
-		]
+		'semantic-release-slack-bot'
 	]
 };
