@@ -1,3 +1,11 @@
+## [1.1.5](https://github.com/madebyheyday/release-util/compare/v1.1.4...v1.1.5) (2020-06-09)
+
+
+### Bug Fixes
+
+* sentry commit association ([45aecb0](https://github.com/madebyheyday/release-util/commit/45aecb0))
+* slack notifications ([f658904](https://github.com/madebyheyday/release-util/commit/f658904))
+
 ## [1.1.4](https://github.com/madebyheyday/release-util/compare/v1.1.3...v1.1.4) (2020-06-09)
 
 ## [1.1.3](https://github.com/madebyheyday/release-util/compare/v1.1.2...v1.1.3) (2020-06-09)
