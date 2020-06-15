@@ -52,6 +52,9 @@ exports.__esModule = true;
 var shell = require("shelljs");
 var chalk_1 = require("chalk");
 var Plugin_1 = require("../base/Plugin");
+var fs = require("fs");
+var path = require("path");
+var appRoot = require("app-root-path");
 /* eslint-disable @typescript-eslint/no-unused-vars */
 var SentryPlugin = /** @class */ (function (_super) {
     __extends(SentryPlugin, _super);
@@ -95,7 +98,7 @@ var SentryPlugin = /** @class */ (function (_super) {
      */
     SentryPlugin.prototype.afterCreateRelease = function (dryRun) {
         return __awaiter(this, void 0, void 0, function () {
-            var currentVersion, sentryProject, releaseCommitRef;
+            var packageJson, currentVersion, sentryProject, releaseCommitRef;
             return __generator(this, function (_a) {
                 if (dryRun)
                     return [2 /*return*/];
@@ -105,7 +108,8 @@ var SentryPlugin = /** @class */ (function (_super) {
                     return [2 /*return*/];
                 }
                 this.log(chalk_1["default"].white('Sentry is enabled - starting Sentry release...'));
-                currentVersion = process.env.npm_package_name + "@" + process.env.npm_package_version;
+                packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
+                currentVersion = packageJson.name + "@" + packageJson.version;
                 this.log(chalk_1["default"].white("Sentry release version: " + currentVersion));
                 if (!process.env.SENTRY_AUTH_TOKEN) {
                     throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
@@ -122,6 +126,7 @@ var SentryPlugin = /** @class */ (function (_super) {
                 // Create a Sentry release
                 shell.exec("sentry-cli releases new --finalize -p " + sentryProject + " \"" + currentVersion + "\"", { silent: false });
                 if (process.env.SENTRY_REPOSITORY_ID) {
+                    this.log('Associating commits with release...');
                     releaseCommitRef = shell
                         .exec('git log -1 --format="%H"', { silent: true })
                         .toString()
@@ -141,7 +146,7 @@ var SentryPlugin = /** @class */ (function (_super) {
      */
     SentryPlugin.prototype.afterDeploymentFinished = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var currentVersion, releaseCommitRef;
+            var packageJson, currentVersion, releaseCommitRef;
             return __generator(this, function (_a) {
                 if (!SentryPlugin.isSentryEnabled()) {
                     console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
@@ -152,7 +157,8 @@ var SentryPlugin = /** @class */ (function (_super) {
                     return [2 /*return*/];
                 }
                 console.log(chalk_1["default"].white('[complete-deployment] Notifying Sentry of release deployment...'));
-                currentVersion = process.env.npm_package_name + "@" + process.env.npm_package_version;
+                packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
+                currentVersion = packageJson.name + "@" + packageJson.version;
                 console.log(chalk_1["default"].white("[complete-deployment] Sentry release version to deploy: " + currentVersion));
                 shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
