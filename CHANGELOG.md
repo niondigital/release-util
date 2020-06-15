@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/madebyheyday/release-util/compare/v1.1.5...v1.1.6) (2020-06-15)
+
+
+### Bug Fixes
+
+* commit info is added to previous sentry version instead of current ([91e7200](https://github.com/madebyheyday/release-util/commit/91e7200))
+
 ## [1.1.5](https://github.com/madebyheyday/release-util/compare/v1.1.4...v1.1.5) (2020-06-09)
 
 
