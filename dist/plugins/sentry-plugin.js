@@ -51,10 +51,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var shell = require("shelljs");
 var chalk_1 = require("chalk");
-var Plugin_1 = require("../base/Plugin");
 var fs = require("fs");
 var path = require("path");
 var appRoot = require("app-root-path");
+var Plugin_1 = require("../base/Plugin");
 /* eslint-disable @typescript-eslint/no-unused-vars */
 var SentryPlugin = /** @class */ (function (_super) {
     __extends(SentryPlugin, _super);
