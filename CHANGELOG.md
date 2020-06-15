@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/madebyheyday/release-util/compare/v1.1.6...v1.1.7) (2020-06-15)
+
+
+### Bug Fixes
+
+* github and slack bot are enforced event without env variables being set ([2de8a29](https://github.com/madebyheyday/release-util/commit/2de8a29))
+
 ## [1.1.6](https://github.com/madebyheyday/release-util/compare/v1.1.5...v1.1.6) (2020-06-15)
 
 
