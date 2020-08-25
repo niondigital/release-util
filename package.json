@@ -10,7 +10,7 @@
 		"release-util": "dist/release-util.js"
 	},
 	"dependencies": {
-		"@madebyheyday/env-util": "^1.0.0",
+		"@madebyheyday/env-util": "^1.0.8",
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v1.0.6",
 		"@semantic-release/changelog": "^5.0.1",
 		"@semantic-release/commit-analyzer": "^8.0.1",
