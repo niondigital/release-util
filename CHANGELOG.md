@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/madebyheyday/release-util/compare/v1.1.7...v1.1.8) (2020-08-25)
+
+
+### Bug Fixes
+
+* remediated security concerns via dependency updates ([defbae5](https://github.com/madebyheyday/release-util/commit/defbae5))
+
 ## [1.1.7](https://github.com/madebyheyday/release-util/compare/v1.1.6...v1.1.7) (2020-06-15)
 
 
