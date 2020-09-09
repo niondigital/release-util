@@ -39,6 +39,10 @@ const config = {
 					{
 						type: 'style',
 						release: 'patch'
+					},
+					{
+						type: 'revert',
+						release: 'patch'
 					}
 				]
 			}
