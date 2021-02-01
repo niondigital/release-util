@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/madebyheyday/release-util/compare/v1.1.8...v1.2.0) (2021-02-01)
+
+
+### Features
+
+* revert commits now create a patch release ([ee87582](https://github.com/madebyheyday/release-util/commit/ee87582))
+* revert commits now create a patch release ([6706c76](https://github.com/madebyheyday/release-util/commit/6706c76))
+
 ## [1.1.8](https://github.com/madebyheyday/release-util/compare/v1.1.7...v1.1.8) (2020-08-25)
 
 
