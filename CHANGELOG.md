@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/madebyheyday/release-util/compare/v1.2.0...v1.2.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* custom project release config is required twice ([3f092e6](https://github.com/madebyheyday/release-util/commit/3f092e6))
+
 # [1.2.0](https://github.com/madebyheyday/release-util/compare/v1.1.8...v1.2.0) (2021-02-01)
 
 
