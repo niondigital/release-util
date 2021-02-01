@@ -15,7 +15,7 @@ Create a plugin by creating a plugin package providing a class as it's default e
 ## Package development
 
 ### Creating a release
-- Make and commit changes to branch `develop
-- Merge `develop` into `master or cherry-pick changes to release
+- Make and commit changes to branch `develop`
+- Merge `develop` into `master` or cherry-pick changes to release
 - Make sure a Github token has been exported to the shell you execute the next command in via `export GH_TOKEN=xxx`
 - Execute `npm run release-util release create` on branch `master`

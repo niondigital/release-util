@@ -7,17 +7,6 @@ const config = {
 	linkReferences: false,
 	pkgRoot: './',
 	changelogFile: './CHANGELOG.md',
-	prepare: [
-		'@semantic-release/changelog',
-		'@semantic-release/npm',
-		{
-			path: '@semantic-release/git',
-			assets: ['./package.json', './package-lock.json', './CHANGELOG.md'],
-			message: 'build: release ${nextRelease.version}\n\n${nextRelease.notes}'
-		}
-	],
-	verifyConditions: ['@semantic-release/changelog', '@semantic-release/git', '@semantic-release/github'],
-	success: [],
 	plugins: [
 		[
 			'@semantic-release/commit-analyzer',
@@ -72,18 +61,14 @@ const config = {
 
 if (process.env.GH_TOKEN) {
 	if (!Array.isArray(config.plugins)) config.plugins = [];
-	if (!Array.isArray(config.success)) config.success = [];
 
 	config.plugins.push('@semantic-release/github');
-	config.success.push('@semantic-release/github');
 }
 
 if (process.env.SLACK_WEBHOOK) {
 	if (!Array.isArray(config.plugins)) config.plugins = [];
-	if (!Array.isArray(config.success)) config.success = [];
 
-	config.plugins.push('semantic-release-slack-bot');
-	config.success.push([
+	config.plugins.push([
 		'semantic-release-slack-bot',
 		{
 			notifyOnSuccess: true,
