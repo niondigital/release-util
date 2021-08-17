@@ -60,14 +60,14 @@ const config = {
 };
 
 if (process.env.GH_TOKEN) {
-	if (!Array.isArray(config.plugins)) config.plugins = [];
-
 	config.plugins.push('@semantic-release/github');
 }
 
-if (process.env.SLACK_WEBHOOK) {
-	if (!Array.isArray(config.plugins)) config.plugins = [];
+if (process.env.GL_TOKEN) {
+	config.plugins.push('@semantic-release/gitlab');
+}
 
+if (process.env.SLACK_WEBHOOK) {
 	config.plugins.push([
 		'semantic-release-slack-bot',
 		{
