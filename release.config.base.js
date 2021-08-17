@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 const config = {
 	noCi: true,
-	branches: ['+([0-9])?(.{+([0-9]),x}).x', 'master'],
+	branches: ['+([0-9])?(.{+([0-9]),x}).x', 'master', 'main'],
 	assets: [],
 	npmPublish: false,
 	linkReferences: false,
