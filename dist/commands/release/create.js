@@ -113,7 +113,7 @@ function createRelease(dryRun) {
                     return [3 /*break*/, 7];
                 case 6:
                     log('Finished');
-                    process.exit(1);
+                    process.exit(0);
                     _e.label = 7;
                 case 7: return [2 /*return*/];
             }

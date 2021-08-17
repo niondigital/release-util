@@ -57,6 +57,6 @@ export default async function createRelease(dryRun: boolean = false): Promise<vo
 		process.exit();
 	} else {
 		log('Finished');
-		process.exit(1);
+		process.exit(0);
 	}
 }
