@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/madebyheyday/release-util/compare/v1.2.2...v1.3.0) (2021-08-17)
+
+
+### Features
+
+* gitlab plugin support ([6098125](https://github.com/madebyheyday/release-util/commit/6098125))
+* main branch support ([33f3ca2](https://github.com/madebyheyday/release-util/commit/33f3ca2))
+
 ## [1.2.2](https://github.com/madebyheyday/release-util/compare/v1.2.1...v1.2.2) (2021-02-01)
 
 ## [1.2.1](https://github.com/madebyheyday/release-util/compare/v1.2.0...v1.2.1) (2021-02-01)
