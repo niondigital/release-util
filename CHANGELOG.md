@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/madebyheyday/release-util/compare/v1.3.1...v1.4.0) (2021-10-20)
+
+
+### Features
+
+* handle semantic release errors and output additional sentry errors ([c675ff9](https://github.com/madebyheyday/release-util/commit/c675ff9))
+
 ## [1.3.1](https://github.com/madebyheyday/release-util/compare/v1.3.0...v1.3.1) (2021-08-17)
 
 
