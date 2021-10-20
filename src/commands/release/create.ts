@@ -42,21 +42,26 @@ export default async function createRelease(dryRun: boolean = false): Promise<vo
 	}
 
 	// (changelog, version bump, git commit)
-	const releaseCreated: boolean = await executeSemanticRelease(dryRun);
+	try {
+		const releaseCreated: boolean = await executeSemanticRelease(dryRun);
 
-	if (releaseCreated) {
-		await Promise.all(
-			(await getPlugins()).map(
-				(plugin: Plugin): Promise<void> => {
-					return plugin.afterCreateRelease(dryRun);
-				}
-			)
-		);
+		if (releaseCreated) {
+			await Promise.all(
+				(await getPlugins()).map(
+					(plugin: Plugin): Promise<void> => {
+						return plugin.afterCreateRelease(dryRun);
+					}
+				)
+			);
 
-		log(chalk.greenBright('Finished'));
-		process.exit();
-	} else {
-		log('Finished');
-		process.exit(0);
+			log(chalk.greenBright('Finished'));
+			process.exit();
+		}
+	} catch (error) {
+		console.error(error);
+		log('Failed');
+		process.exit(1);
 	}
+	log('Finished');
+	process.exit(0);
 }

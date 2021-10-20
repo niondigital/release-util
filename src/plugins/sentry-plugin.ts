@@ -70,6 +70,10 @@ export default class SentryPlugin extends Plugin {
 			throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
 		}
 
+		if (!process.env.SENTRY_DSN) {
+			throw new Error('Please set environment variable SENTRY_DSN');
+		}
+
 		if (!process.env.SENTRY_ORG) {
 			throw new Error('Please set environment variable SENTRY_ORG');
 		}
@@ -78,6 +82,7 @@ export default class SentryPlugin extends Plugin {
 			throw new Error('Please set environment variable SENTRY_PROJECT');
 		}
 
+		shell.env.SENTRY_DSN = process.env.SENTRY_DSN || '';
 		shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
 		shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
 
