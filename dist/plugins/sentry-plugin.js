@@ -114,12 +114,16 @@ var SentryPlugin = /** @class */ (function (_super) {
                 if (!process.env.SENTRY_AUTH_TOKEN) {
                     throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
                 }
+                if (!process.env.SENTRY_DSN) {
+                    throw new Error('Please set environment variable SENTRY_DSN');
+                }
                 if (!process.env.SENTRY_ORG) {
                     throw new Error('Please set environment variable SENTRY_ORG');
                 }
                 if (!process.env.SENTRY_PROJECT) {
                     throw new Error('Please set environment variable SENTRY_PROJECT');
                 }
+                shell.env.SENTRY_DSN = process.env.SENTRY_DSN || '';
                 shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
                 sentryProject = process.env.SENTRY_PROJECT || '';

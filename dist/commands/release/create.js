@@ -82,7 +82,7 @@ function executeSemanticRelease(dryRun) {
 function createRelease(dryRun) {
     if (dryRun === void 0) { dryRun = false; }
     return __awaiter(this, void 0, void 0, function () {
-        var checks, _a, _b, releaseCreated, _c, _d;
+        var checks, _a, _b, releaseCreated, _c, _d, error_1;
         return __generator(this, function (_e) {
             switch (_e.label) {
                 case 0:
@@ -97,25 +97,34 @@ function createRelease(dryRun) {
                     if (checks.includes(false)) {
                         log(chalk_1["default"].white('Release Prevented by plugin'));
                     }
-                    return [4 /*yield*/, executeSemanticRelease(dryRun)];
+                    _e.label = 3;
                 case 3:
+                    _e.trys.push([3, 8, , 9]);
+                    return [4 /*yield*/, executeSemanticRelease(dryRun)];
+                case 4:
                     releaseCreated = _e.sent();
-                    if (!releaseCreated) return [3 /*break*/, 6];
+                    if (!releaseCreated) return [3 /*break*/, 7];
                     _d = (_c = Promise).all;
                     return [4 /*yield*/, getPlugins_1["default"]()];
-                case 4: return [4 /*yield*/, _d.apply(_c, [(_e.sent()).map(function (plugin) {
+                case 5: return [4 /*yield*/, _d.apply(_c, [(_e.sent()).map(function (plugin) {
                             return plugin.afterCreateRelease(dryRun);
                         })])];
-                case 5:
+                case 6:
                     _e.sent();
                     log(chalk_1["default"].greenBright('Finished'));
                     process.exit();
-                    return [3 /*break*/, 7];
-                case 6:
+                    _e.label = 7;
+                case 7: return [3 /*break*/, 9];
+                case 8:
+                    error_1 = _e.sent();
+                    console.error(error_1);
+                    log('Failed');
+                    process.exit(1);
+                    return [3 /*break*/, 9];
+                case 9:
                     log('Finished');
                     process.exit(0);
-                    _e.label = 7;
-                case 7: return [2 /*return*/];
+                    return [2 /*return*/];
             }
         });
     });
