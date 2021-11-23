@@ -37,9 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var getPlugins_1 = require("../../base/getPlugins");
-var chalk_1 = require("chalk");
+var chalk = require("chalk");
 function log(message) {
-    console.log(chalk_1["default"].gray('[finishDeployment]') + " " + message);
+    console.log("".concat(chalk.gray('[finishDeployment]'), " ").concat(message));
 }
 function finishDeployment() {
     return __awaiter(this, void 0, void 0, function () {
@@ -48,13 +48,13 @@ function finishDeployment() {
             switch (_c.label) {
                 case 0:
                     _b = (_a = Promise).all;
-                    return [4 /*yield*/, getPlugins_1["default"]()];
+                    return [4 /*yield*/, (0, getPlugins_1["default"])()];
                 case 1: return [4 /*yield*/, _b.apply(_a, [(_c.sent()).map(function (plugin) {
                             return plugin.afterDeploymentFinished();
                         })])];
                 case 2:
                     _c.sent();
-                    log(chalk_1["default"].greenBright('Finished'));
+                    log(chalk.greenBright('Finished'));
                     return [2 /*return*/];
             }
         });

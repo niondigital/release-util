@@ -1,6 +1,6 @@
 import * as shell from 'shelljs';
 import * as inquirer from 'inquirer';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 function log(message: string): void {
 	console.log(`${chalk.gray('[createDeployment]')} ${message}`);
@@ -73,9 +73,9 @@ export default async function createDeployment(): Promise<void> {
 	let { stdout: currentBranchName } = shell.exec('git rev-parse --abbrev-ref HEAD', { silent: true });
 	currentBranchName = currentBranchName.replace('\n', '');
 
-	let hasLocalChanges: boolean = false;
 	const statusResult: shell.ShellString = shell.exec('git status --porcelain');
-	hasLocalChanges = statusResult.stdout.split('\n').length > 1;
+	let hasLocalChanges: boolean = statusResult.stdout.split('\n').length > 1;
+
 	if (hasLocalChanges) {
 		log('Stashing local changes...');
 		shell.exec('git stash');

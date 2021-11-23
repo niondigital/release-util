@@ -3,10 +3,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -50,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var shell = require("shelljs");
-var chalk_1 = require("chalk");
+var chalk = require("chalk");
 var Plugin_1 = require("../base/Plugin");
 /* eslint-disable @typescript-eslint/no-unused-vars */
 var NetlifyPlugin = /** @class */ (function (_super) {
@@ -80,10 +82,10 @@ var NetlifyPlugin = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 // only operate in Netlify build context
                 if (!process.env.NETLIFY || !process.env.BRANCH || !process.env.COMMIT_REF) {
-                    this.log(chalk_1["default"].yellow('Operating outside Netlify build context. Skipping Netlify Git setup handling.'));
+                    this.log(chalk.yellow('Operating outside Netlify build context. Skipping Netlify Git setup handling.'));
                     return [2 /*return*/, true];
                 }
-                this.log(chalk_1["default"].gray('Netlify build context detected. Verifying local copy'));
+                this.log(chalk.gray('Netlify build context detected. Verifying local copy'));
                 workdirBranch = shell
                     .exec('git rev-parse --abbrev-ref HEAD', { silent: true })
                     .toString()
@@ -91,12 +93,12 @@ var NetlifyPlugin = /** @class */ (function (_super) {
                 buildBranch = process.env.BRANCH || workdirBranch;
                 // ! Kids, don't try this at home - this will meddle with your local git repo!
                 if (workdirBranch !== buildBranch) {
-                    this.log(chalk_1["default"].white("Netlify reported build branch '" + buildBranch + "', but local copy is '" + workdirBranch + "'. Checking out build branch..."));
+                    this.log(chalk.white("Netlify reported build branch '".concat(buildBranch, "', but local copy is '").concat(workdirBranch, "'. Checking out build branch...")));
                     // env.BRANCH is different from what Git reports as being the current branch
-                    shell.exec("git branch -f " + buildBranch + " " + process.env.COMMIT_REF, { silent: true });
-                    shell.exec("git checkout " + buildBranch, { silent: true });
+                    shell.exec("git branch -f ".concat(buildBranch, " ").concat(process.env.COMMIT_REF), { silent: true });
+                    shell.exec("git checkout ".concat(buildBranch), { silent: true });
                 }
-                this.log(chalk_1["default"].greenBright("Local branch is '" + buildBranch + "'."));
+                this.log(chalk.greenBright("Local branch is '".concat(buildBranch, "'.")));
                 return [2 /*return*/, true];
             });
         });
@@ -123,7 +125,7 @@ var NetlifyPlugin = /** @class */ (function (_super) {
         });
     };
     NetlifyPlugin.prototype.log = function (message) {
-        console.log(chalk_1["default"].gray("[" + this.getName() + "]") + " " + message);
+        console.log("".concat(chalk.gray("[".concat(this.getName(), "]")), " ").concat(message));
     };
     return NetlifyPlugin;
 }(Plugin_1["default"]));
