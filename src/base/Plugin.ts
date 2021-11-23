@@ -6,11 +6,11 @@ export default abstract class Plugin {
 
 	public abstract init(program: program.Command): void;
 
-	public abstract async beforeCreateRelease(dryRun: boolean): Promise<boolean>;
+	public abstract beforeCreateRelease(dryRun: boolean): Promise<boolean>;
 
-	public abstract async afterCreateRelease(dryRun: boolean): Promise<void>;
+	public abstract afterCreateRelease(dryRun: boolean): Promise<void>;
 
-	public abstract async afterDeploymentFinished(): Promise<void>;
+	public abstract afterDeploymentFinished(): Promise<void>;
 }
 
 /* eslint-enable @typescript-eslint/no-unused-vars */

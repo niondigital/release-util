@@ -3,10 +3,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -50,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var shell = require("shelljs");
-var chalk_1 = require("chalk");
+var chalk = require("chalk");
 var fs = require("fs");
 var path = require("path");
 var appRoot = require("app-root-path");
@@ -104,13 +106,13 @@ var SentryPlugin = /** @class */ (function (_super) {
                     return [2 /*return*/];
                 // only execute if sentry is enabled per environment config
                 if (!SentryPlugin.isSentryEnabled()) {
-                    this.log(chalk_1["default"].yellow('Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...'));
+                    this.log(chalk.yellow('Environment variable SENTRY_ENABLED not set or explicitly disabling Sentry - skipping sentry release...'));
                     return [2 /*return*/];
                 }
-                this.log(chalk_1["default"].white('Sentry is enabled - starting Sentry release...'));
+                this.log(chalk.white('Sentry is enabled - starting Sentry release...'));
                 packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
-                currentVersion = packageJson.name + "@" + packageJson.version;
-                this.log(chalk_1["default"].white("Sentry release version: " + currentVersion));
+                currentVersion = "".concat(packageJson.name, "@").concat(packageJson.version);
+                this.log(chalk.white("Sentry release version: ".concat(currentVersion)));
                 if (!process.env.SENTRY_AUTH_TOKEN) {
                     throw new Error('Please set environment variable SENTRY_AUTH_TOKEN');
                 }
@@ -128,19 +130,19 @@ var SentryPlugin = /** @class */ (function (_super) {
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
                 sentryProject = process.env.SENTRY_PROJECT || '';
                 // Create a Sentry release
-                shell.exec("sentry-cli releases new --finalize -p " + sentryProject + " \"" + currentVersion + "\"", { silent: false });
+                shell.exec("sentry-cli releases new --finalize -p ".concat(sentryProject, " \"").concat(currentVersion, "\""), { silent: false });
                 if (process.env.SENTRY_REPOSITORY_ID) {
                     this.log('Associating commits with release...');
                     releaseCommitRef = shell
                         .exec('git log -1 --format="%H"', { silent: true })
                         .toString()
                         .replace(/([\n\r])/, '');
-                    shell.exec("sentry-cli releases set-commits \"" + currentVersion + "\" --commit \"" + process.env.SENTRY_REPOSITORY_ID + "@" + releaseCommitRef + "\"", { silent: false });
+                    shell.exec("sentry-cli releases set-commits \"".concat(currentVersion, "\" --commit \"").concat(process.env.SENTRY_REPOSITORY_ID, "@").concat(releaseCommitRef, "\""), { silent: false });
                 }
                 else {
-                    this.log(chalk_1["default"].yellow('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...'));
+                    this.log(chalk.yellow('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...'));
                 }
-                this.log(chalk_1["default"].greenBright('Sentry release completed'));
+                this.log(chalk.greenBright('Sentry release completed'));
                 return [2 /*return*/];
             });
         });
@@ -160,22 +162,22 @@ var SentryPlugin = /** @class */ (function (_super) {
                     console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
                     return [2 /*return*/];
                 }
-                console.log(chalk_1["default"].white('[complete-deployment] Notifying Sentry of release deployment...'));
+                console.log(chalk.white('[complete-deployment] Notifying Sentry of release deployment...'));
                 packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
-                currentVersion = packageJson.name + "@" + packageJson.version;
-                console.log(chalk_1["default"].white("[complete-deployment] Sentry release version to deploy: " + currentVersion));
+                currentVersion = "".concat(packageJson.name, "@").concat(packageJson.version);
+                console.log(chalk.white("[complete-deployment] Sentry release version to deploy: ".concat(currentVersion)));
                 shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
                 // Notify of release deployment
-                shell.exec("sentry-cli releases deploys \"" + currentVersion + "\" new -e \"" + process.env.SENTRY_ENVIRONMENT + "\" -u \"" + process.env.DEPLOY_URL + "\"", { silent: false });
+                shell.exec("sentry-cli releases deploys \"".concat(currentVersion, "\" new -e \"").concat(process.env.SENTRY_ENVIRONMENT, "\" -u \"").concat(process.env.DEPLOY_URL, "\""), { silent: false });
                 if (process.env.SENTRY_REPOSITORY_ID) {
                     releaseCommitRef = shell
                         .exec('git log -1 --format="%H"', { silent: true })
                         .toString()
                         .replace(/(\[n|\r])/, '');
-                    shell.exec("sentry-cli releases set-commits \"" + currentVersion + "\" --commit \"" + process.env.SENTRY_REPOSITORY_ID + "@" + releaseCommitRef + "\"", { silent: false });
+                    shell.exec("sentry-cli releases set-commits \"".concat(currentVersion, "\" --commit \"").concat(process.env.SENTRY_REPOSITORY_ID, "@").concat(releaseCommitRef, "\""), { silent: false });
                 }
-                console.log(chalk_1["default"].greenBright('[complete-deployment] Sentry release deployment completed'));
+                console.log(chalk.greenBright('[complete-deployment] Sentry release deployment completed'));
                 return [2 /*return*/];
             });
         });
@@ -184,7 +186,7 @@ var SentryPlugin = /** @class */ (function (_super) {
         return !['false', '0', ''].includes(String(process.env.SENTRY_ENABLED).toLowerCase());
     };
     SentryPlugin.prototype.log = function (message) {
-        console.log(chalk_1["default"].gray("[" + this.getName() + "]") + " " + message);
+        console.log("".concat(chalk.gray("[".concat(this.getName(), "]")), " ").concat(message));
     };
     return SentryPlugin;
 }(Plugin_1["default"]));
