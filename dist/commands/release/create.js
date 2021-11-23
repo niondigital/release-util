@@ -47,12 +47,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var chalk_1 = require("chalk");
-var semanticRelease = require("semantic-release");
+var chalk = require("chalk");
 var semantic_release_1 = require("../../base/semantic-release");
 var getPlugins_1 = require("../../base/getPlugins");
+var semanticRelease = require('semantic-release');
 function log(message) {
-    console.log(chalk_1["default"].gray('[createRelease]') + " " + message);
+    console.log("".concat(chalk.gray('[createRelease]'), " ").concat(message));
 }
 /**
  * Create semantic release:
@@ -66,14 +66,14 @@ function executeSemanticRelease(dryRun) {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, semanticRelease(__assign(__assign({}, semantic_release_1.getSemanticReleaseOptions()), { dryRun: dryRun }))];
+                case 0: return [4 /*yield*/, semanticRelease(__assign(__assign({}, (0, semantic_release_1.getSemanticReleaseOptions)()), { dryRun: dryRun }))];
                 case 1:
                     result = _a.sent();
                     if (!result || result.lastRelease.version === result.nextRelease.version) {
-                        log(chalk_1["default"].yellow('No release created'));
+                        log(chalk.yellow('No release created'));
                         return [2 /*return*/, false];
                     }
-                    log(chalk_1["default"].greenBright("Release created: " + result.nextRelease.version));
+                    log(chalk.greenBright("Release created: ".concat(result.nextRelease.version)));
                     return [2 /*return*/, true];
             }
         });
@@ -88,14 +88,14 @@ function createRelease(dryRun) {
                 case 0:
                     log('Creating release...');
                     _b = (_a = Promise).all;
-                    return [4 /*yield*/, getPlugins_1["default"]()];
+                    return [4 /*yield*/, (0, getPlugins_1["default"])()];
                 case 1: return [4 /*yield*/, _b.apply(_a, [(_e.sent()).map(function (plugin) {
                             return plugin.beforeCreateRelease(dryRun);
                         })])];
                 case 2:
                     checks = _e.sent();
                     if (checks.includes(false)) {
-                        log(chalk_1["default"].white('Release Prevented by plugin'));
+                        log(chalk.white('Release Prevented by plugin'));
                     }
                     _e.label = 3;
                 case 3:
@@ -105,13 +105,13 @@ function createRelease(dryRun) {
                     releaseCreated = _e.sent();
                     if (!releaseCreated) return [3 /*break*/, 7];
                     _d = (_c = Promise).all;
-                    return [4 /*yield*/, getPlugins_1["default"]()];
+                    return [4 /*yield*/, (0, getPlugins_1["default"])()];
                 case 5: return [4 /*yield*/, _d.apply(_c, [(_e.sent()).map(function (plugin) {
                             return plugin.afterCreateRelease(dryRun);
                         })])];
                 case 6:
                     _e.sent();
-                    log(chalk_1["default"].greenBright('Finished'));
+                    log(chalk.greenBright('Finished'));
                     process.exit();
                     _e.label = 7;
                 case 7: return [3 /*break*/, 9];

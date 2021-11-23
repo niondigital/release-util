@@ -12,6 +12,10 @@
 	"dependencies": {
 		"@madebyheyday/env-util": "^1.0.8",
 		"app-root-path": "^3.0.0",
+		"chalk": "^4.1.2",
+		"commander": "^8.3.0",
+		"inquirer": "8.2.0",
+		"semantic-release": "^18.0.0",
 		"chalk": "4.1.2",
 		"commander": "^8.3.0",
 		"inquirer": "8.2.0",
@@ -31,7 +35,7 @@
 		"semantic-release-slack-bot": "^3.0.0"
 	},
 	"devDependencies": {
-		"@madebyheyday/linting-base": "^1.4.1",
+		"@madebyheyday/linting-base": "^2.0.6",
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v1.0.6",
 		"@semantic-release/changelog": "^6.0.1",
 		"@semantic-release/commit-analyzer": "^9.0.1",
@@ -46,6 +50,9 @@
 		"@types/node": "16.11.9",
 		"@types/semantic-release": "^17.2.3",
 		"@types/shelljs": "0.8.9",
+		"eslint": "^8.3.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^4.0.0",
 		"semantic-release-slack-bot": "^3.0.0",
 		"ts-node": "10.4.0",
 		"tsconfig-paths": "3.12.0",

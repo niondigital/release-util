@@ -1,6 +1,6 @@
 import Plugin from '../../base/Plugin';
 import getPlugins from '../../base/getPlugins';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 function log(message: string): void {
 	console.log(`${chalk.gray('[finishDeployment]')} ${message}`);

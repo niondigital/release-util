@@ -74,10 +74,10 @@ function getPlugins() {
                                     case 6: return [3 /*break*/, 7];
                                     case 7:
                                         if (!pluginModule)
-                                            throw new Error("Could not load plugin '" + pluginName + "'");
+                                            throw new Error("Could not load plugin '".concat(pluginName, "'"));
                                         pluginInstance = new pluginModule["default"]();
                                         if (!(pluginInstance instanceof Plugin_1["default"])) {
-                                            throw new Error("Not a plugin module: '" + pluginName + "'");
+                                            throw new Error("Not a plugin module: '".concat(pluginName, "'"));
                                         }
                                         plugins.push(pluginInstance);
                                         return [2 /*return*/];

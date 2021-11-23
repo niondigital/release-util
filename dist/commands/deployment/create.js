@@ -38,9 +38,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var shell = require("shelljs");
 var inquirer = require("inquirer");
-var chalk_1 = require("chalk");
+var chalk = require("chalk");
 function log(message) {
-    console.log(chalk_1["default"].gray('[createDeployment]') + " " + message);
+    console.log("".concat(chalk.gray('[createDeployment]'), " ").concat(message));
 }
 function getDeploymentBranches() {
     if (!process.env.DEPLOYMENT_BRANCHES) {
@@ -50,12 +50,12 @@ function getDeploymentBranches() {
 }
 function createDeployment() {
     return __awaiter(this, void 0, void 0, function () {
-        var deploymentBranches, gitTagOutput, releaseTagChoices, deployBranchName, tagName, currentBranchName, hasLocalChanges, statusResult;
+        var deploymentBranches, gitTagOutput, releaseTagChoices, deployBranchName, tagName, currentBranchName, statusResult, hasLocalChanges;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     deploymentBranches = getDeploymentBranches();
-                    console.log("\n" + chalk_1["default"].red('Attention:\n') + " - This command operates on multiple branches - consider commiting local changes first.\n - Make sure branches " + deploymentBranches.join(', ') + " exist locally and are set to follow to their origin/x counterparts.\n");
+                    console.log("\n".concat(chalk.red('Attention:\n'), " - This command operates on multiple branches - consider commiting local changes first.\n - Make sure branches ").concat(deploymentBranches.join(', '), " exist locally and are set to follow to their origin/x counterparts.\n"));
                     shell.exec('git fetch --all', { silent: true });
                     gitTagOutput = shell.exec("git tag -l --sort=-v:refname --format='%(refname:short)|%(creatordate)'", { silent: true });
                     releaseTagChoices = gitTagOutput.stdout
@@ -67,12 +67,12 @@ function createDeployment() {
                         return {
                             value: tagName,
                             short: tagName,
-                            name: tagName.padEnd(12, ' ') + "   (" + creatorDateObject.getDate() + "." + (creatorDateObject.getMonth() +
-                                1) + "." + creatorDateObject.getFullYear() + ")"
+                            name: "".concat(tagName.padEnd(12, ' '), "   (").concat(creatorDateObject.getDate(), ".").concat(creatorDateObject.getMonth() +
+                                1, ".").concat(creatorDateObject.getFullYear(), ")")
                         };
                     });
                     if (releaseTagChoices.length === 0) {
-                        log(chalk_1["default"].red('Error: No release exist that could be deployed.'));
+                        log(chalk.red('Error: No release exist that could be deployed.'));
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, inquirer.prompt([
@@ -97,28 +97,27 @@ function createDeployment() {
                     tagName = (_a.sent()).tagName;
                     currentBranchName = shell.exec('git rev-parse --abbrev-ref HEAD', { silent: true }).stdout;
                     currentBranchName = currentBranchName.replace('\n', '');
-                    hasLocalChanges = false;
                     statusResult = shell.exec('git status --porcelain');
                     hasLocalChanges = statusResult.stdout.split('\n').length > 1;
                     if (hasLocalChanges) {
                         log('Stashing local changes...');
                         shell.exec('git stash');
                     }
-                    log("Checking out branch '" + deployBranchName + "'...");
-                    shell.exec("git checkout " + deployBranchName);
-                    log("Resetting branch to '" + tagName + "'...");
-                    shell.exec("git reset --hard " + tagName);
+                    log("Checking out branch '".concat(deployBranchName, "'..."));
+                    shell.exec("git checkout ".concat(deployBranchName));
+                    log("Resetting branch to '".concat(tagName, "'..."));
+                    shell.exec("git reset --hard ".concat(tagName));
                     log('Performing force push...');
                     shell.exec('git push --force');
                     if (deployBranchName !== currentBranchName) {
-                        log("Checking out branch '" + currentBranchName + "'...");
-                        shell.exec("git checkout " + currentBranchName);
+                        log("Checking out branch '".concat(currentBranchName, "'..."));
+                        shell.exec("git checkout ".concat(currentBranchName));
                         if (hasLocalChanges) {
                             log('Applying previously stashed local changes...');
                             shell.exec('git stash pop');
                         }
                     }
-                    log(chalk_1["default"].greenBright('Finished'));
+                    log(chalk.greenBright('Finished'));
                     return [2 /*return*/];
             }
         });
