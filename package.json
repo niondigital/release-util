@@ -19,7 +19,7 @@
 		"shelljs": "^0.8.4"
 	},
 	"peerDependencies": {
-		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v1.0.6",
+		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v2.0.0",
 		"@semantic-release/changelog": "^6.0.1",
 		"@semantic-release/commit-analyzer": "^9.0.2",
 		"@semantic-release/git": "^10.0.1",
@@ -32,7 +32,7 @@
 	},
 	"devDependencies": {
 		"@madebyheyday/linting-base": "^2.0.6",
-		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v1.0.6",
+		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v2.0.0",
 		"@semantic-release/changelog": "^6.0.1",
 		"@semantic-release/commit-analyzer": "^9.0.2",
 		"@semantic-release/git": "^10.0.1",
