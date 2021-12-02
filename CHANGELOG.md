@@ -1,3 +1,5 @@
+## [3.0.1](https://github.com/madebyheyday/release-util/compare/v3.0.0...v3.0.1) (2021-12-02)
+
 # [3.0.0](https://github.com/madebyheyday/release-util/compare/v2.0.0...v3.0.0) (2021-12-02)
 
 
