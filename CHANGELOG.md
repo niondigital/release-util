@@ -1,3 +1,16 @@
+# [3.0.0](https://github.com/madebyheyday/release-util/compare/v2.0.0...v3.0.0) (2021-12-02)
+
+
+### Features
+
+* updated dependencies and introduced peer dependencies ([0f8aecb](https://github.com/madebyheyday/release-util/commit/0f8aecb))
+
+
+### BREAKING CHANGES
+
+* Minimum Node version now is 14.17
+* Moved semantic release plugins to peer dependencies
+
 # [2.0.0](https://github.com/madebyheyday/release-util/compare/v1.4.0...v2.0.0) (2021-11-23)
 
 
