@@ -59,7 +59,7 @@ const config = {
 	]
 };
 
-if (process.env.GH_TOKEN) {
+if (process.env.GH_TOKEN || process.env.GITHUB_TOKEN) {
 	config.plugins.push('@semantic-release/github');
 }
 
