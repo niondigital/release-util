@@ -16,7 +16,7 @@
 		"commander": "^8.3.0",
 		"inquirer": "8.2.0",
 		"semantic-release": "^18.0.0",
-		"shelljs": "^0.8.4"
+		"shelljs": "^0.8.5"
 	},
 	"peerDependencies": {
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v2.0.0",
