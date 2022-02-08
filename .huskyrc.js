@@ -1,1 +1,1 @@
-module.exports = require('@madebyheyday/linting-base/husky.config')
+module.exports = require('@niondigital/linting-base/husky.config')

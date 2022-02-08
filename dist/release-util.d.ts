@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import '@madebyheyday/env-util';
+import '@niondigital/env-util';
 import { program } from 'commander';
 import createDeployment from './commands/deployment/create';
 import createRelease from './commands/release/create';

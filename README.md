@@ -1,4 +1,4 @@
-# @madebyheyday/release-util
+# @niondigital/release-util
 
 Toolkit to create releases and handle deployments
 
