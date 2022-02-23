@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/niondigital/release-util/compare/v3.2.0...v3.2.1) (2022-02-23)
+
+
+### Bug Fixes
+
+* sourcemap upload using invalid sentry cli parameters ([c276c2b](https://github.com/niondigital/release-util/commit/c276c2b))
+
 # [3.2.0](https://github.com/niondigital/release-util/compare/v3.1.0...v3.2.0) (2022-02-23)
 
 
