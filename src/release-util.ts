@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import '@madebyheyday/env-util';
+import '@niondigital/env-util';
 import * as fs from 'fs';
 import * as path from 'path';
 import { program } from 'commander';
