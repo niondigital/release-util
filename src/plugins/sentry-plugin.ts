@@ -98,12 +98,12 @@ export default class SentryPlugin extends Plugin {
 			// like `--ext js --ext ts --ext tsx --ext jsx --ext map`
 			const sourceMapPaths: string[] = (process.env.SENTRY_SOURCEMAPS || '').split(',');
 			sourceMapPaths.forEach((sourceMapPath: string) => {
-				shell.exec(`sentry-cli releases files -p ${sentryProject} "${currentVersion}" upload-sourcemaps ${sourceMapPath}`, { silent: false });
+				shell.exec(`sentry-cli releases files "${currentVersion}" upload-sourcemaps ${sourceMapPath}`, { silent: false });
 			});
 		}
 
 		// finalize release
-		shell.exec(`sentry-cli releases finalize -p ${sentryProject} "${currentVersion}"`, { silent: false });
+		shell.exec(`sentry-cli releases finalize "${currentVersion}"`, { silent: false });
 
 		if (process.env.SENTRY_REPOSITORY_ID) {
 			this.log('Associating commits with release...');
