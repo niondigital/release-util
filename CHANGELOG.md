@@ -1,3 +1,11 @@
+# [3.1.0](https://github.com/niondigital/release-util/compare/v3.0.1...v3.1.0) (2022-02-23)
+
+
+### Features
+
+* sourcemap upload support for sentry-plugin ([76f2ddf](https://github.com/niondigital/release-util/commit/76f2ddf))
+* updated packages and switched to new org ([8f03a12](https://github.com/niondigital/release-util/commit/8f03a12))
+
 ## [3.0.1](https://github.com/niondigital/release-util/compare/v3.0.0...v3.0.1) (2021-12-02)
 
 # [3.0.0](https://github.com/niondigital/release-util/compare/v2.0.0...v3.0.0) (2021-12-02)
