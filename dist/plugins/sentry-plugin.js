@@ -135,11 +135,11 @@ var SentryPlugin = /** @class */ (function (_super) {
                 if (process.env.SENTRY_SOURCEMAPS) {
                     sourceMapPaths = (process.env.SENTRY_SOURCEMAPS || '').split(',');
                     sourceMapPaths.forEach(function (sourceMapPath) {
-                        shell.exec("sentry-cli releases files -p ".concat(sentryProject, " \"").concat(currentVersion, "\" upload-sourcemaps ").concat(sourceMapPath), { silent: false });
+                        shell.exec("sentry-cli releases files \"".concat(currentVersion, "\" upload-sourcemaps ").concat(sourceMapPath), { silent: false });
                     });
                 }
                 // finalize release
-                shell.exec("sentry-cli releases finalize -p ".concat(sentryProject, " \"").concat(currentVersion, "\""), { silent: false });
+                shell.exec("sentry-cli releases finalize \"".concat(currentVersion, "\""), { silent: false });
                 if (process.env.SENTRY_REPOSITORY_ID) {
                     this.log('Associating commits with release...');
                     releaseCommitRef = shell
