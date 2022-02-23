@@ -164,7 +164,7 @@ var SentryPlugin = /** @class */ (function (_super) {
      */
     SentryPlugin.prototype.afterDeploymentFinished = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var packageJson, currentVersion, releaseCommitRef;
+            var packageJson, currentVersion, url, releaseCommitRef;
             return __generator(this, function (_a) {
                 if (!SentryPlugin.isSentryEnabled()) {
                     console.info('[finish-deployment] Current branch is not configured to deploy a release in Sentry. Skipping sentry deployment notification...');
@@ -180,8 +180,8 @@ var SentryPlugin = /** @class */ (function (_super) {
                 console.log(chalk.white("[complete-deployment] Sentry release version to deploy: ".concat(currentVersion)));
                 shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
-                // Notify of release deployment
-                shell.exec("sentry-cli releases deploys \"".concat(currentVersion, "\" new -e \"").concat(process.env.SENTRY_ENVIRONMENT, "\" -u \"").concat(process.env.SENTRY_DEPLOY_URL, "\""), { silent: false });
+                url = process.env.SENTRY_DEPLOY_URL ? " -u \"".concat(process.env.SENTRY_DEPLOY_URL, "\"") : '';
+                shell.exec("sentry-cli releases deploys \"".concat(currentVersion, "\" new -e \"").concat(process.env.SENTRY_ENVIRONMENT, "\"").concat(url), { silent: false });
                 if (process.env.SENTRY_REPOSITORY_ID) {
                     releaseCommitRef = shell
                         .exec('git log -1 --format="%H"', { silent: true })

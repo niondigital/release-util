@@ -154,8 +154,9 @@ export default class SentryPlugin extends Plugin {
 		shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
 
 		// Notify of release deployment
+		const url: string = process.env.SENTRY_DEPLOY_URL ? ` -u "${process.env.SENTRY_DEPLOY_URL}"` : '';
 		shell.exec(
-			`sentry-cli releases deploys "${currentVersion}" new -e "${process.env.SENTRY_ENVIRONMENT}" -u "${process.env.SENTRY_DEPLOY_URL}"`,
+			`sentry-cli releases deploys "${currentVersion}" new -e "${process.env.SENTRY_ENVIRONMENT}"${url}`,
 			{ silent: false }
 		);
 
