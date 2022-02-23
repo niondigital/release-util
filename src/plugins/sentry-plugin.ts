@@ -93,7 +93,9 @@ export default class SentryPlugin extends Plugin {
 
 		// Upload source maps (if paths are provided)
 		if (process.env.SENTRY_SOURCEMAPS) {
-			// --ext js --ext ts --ext tsx --ext jsx --ext map
+			// multiple source map configs may be provided, separated by comma
+			// each config must consist of a path and can optionally be prefixed  with options to pass to sentry-cli releases files ,
+			// like `--ext js --ext ts --ext tsx --ext jsx --ext map`
 			const sourceMapPaths: string[] = (process.env.SENTRY_SOURCEMAPS || '').split(',');
 			sourceMapPaths.forEach((sourceMapPath: string) => {
 				shell.exec(`sentry-cli releases files -p ${sentryProject} "${currentVersion}" upload-sourcemaps ${sourceMapPath}`, { silent: false });
