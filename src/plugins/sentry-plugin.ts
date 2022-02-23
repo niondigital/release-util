@@ -89,7 +89,19 @@ export default class SentryPlugin extends Plugin {
 		const sentryProject = process.env.SENTRY_PROJECT || '';
 
 		// Create a Sentry release
-		shell.exec(`sentry-cli releases new --finalize -p ${sentryProject} "${currentVersion}"`, { silent: false });
+		shell.exec(`sentry-cli releases new -p ${sentryProject} "${currentVersion}"`, { silent: false });
+
+		// Upload source maps (if paths are provided)
+		if (process.env.SENTRY_SOURCEMAPS) {
+			// --ext js --ext ts --ext tsx --ext jsx --ext map
+			const sourceMapPaths: string[] = (process.env.SENTRY_SOURCEMAPS || '').split(',');
+			sourceMapPaths.forEach((sourceMapPath: string) => {
+				shell.exec(`sentry-cli releases files -p ${sentryProject} "${currentVersion}" upload-sourcemaps ${sourceMapPath}`, { silent: false });
+			});
+		}
+
+		// finalize release
+		shell.exec(`sentry-cli releases finalize -p ${sentryProject} "${currentVersion}"`, { silent: false });
 
 		if (process.env.SENTRY_REPOSITORY_ID) {
 			this.log('Associating commits with release...');
@@ -138,7 +150,7 @@ export default class SentryPlugin extends Plugin {
 
 		// Notify of release deployment
 		shell.exec(
-			`sentry-cli releases deploys "${currentVersion}" new -e "${process.env.SENTRY_ENVIRONMENT}" -u "${process.env.DEPLOY_URL}"`,
+			`sentry-cli releases deploys "${currentVersion}" new -e "${process.env.SENTRY_ENVIRONMENT}" -u "${process.env.SENTRY_DEPLOY_URL}"`,
 			{ silent: false }
 		);
 

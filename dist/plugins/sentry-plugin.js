@@ -100,7 +100,7 @@ var SentryPlugin = /** @class */ (function (_super) {
      */
     SentryPlugin.prototype.afterCreateRelease = function (dryRun) {
         return __awaiter(this, void 0, void 0, function () {
-            var packageJson, currentVersion, sentryProject, releaseCommitRef;
+            var packageJson, currentVersion, sentryProject, sourceMapPaths, releaseCommitRef;
             return __generator(this, function (_a) {
                 if (dryRun)
                     return [2 /*return*/];
@@ -130,7 +130,16 @@ var SentryPlugin = /** @class */ (function (_super) {
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
                 sentryProject = process.env.SENTRY_PROJECT || '';
                 // Create a Sentry release
-                shell.exec("sentry-cli releases new --finalize -p ".concat(sentryProject, " \"").concat(currentVersion, "\""), { silent: false });
+                shell.exec("sentry-cli releases new -p ".concat(sentryProject, " \"").concat(currentVersion, "\""), { silent: false });
+                // Upload source maps (if paths are provided)
+                if (process.env.SENTRY_SOURCEMAPS) {
+                    sourceMapPaths = (process.env.SENTRY_SOURCEMAPS || '').split(',');
+                    sourceMapPaths.forEach(function (sourceMapPath) {
+                        shell.exec("sentry-cli releases files -p ".concat(sentryProject, " \"").concat(currentVersion, "\" upload-sourcemaps ").concat(sourceMapPath), { silent: false });
+                    });
+                }
+                // finalize release
+                shell.exec("sentry-cli releases finalize -p ".concat(sentryProject, " \"").concat(currentVersion, "\""), { silent: false });
                 if (process.env.SENTRY_REPOSITORY_ID) {
                     this.log('Associating commits with release...');
                     releaseCommitRef = shell
@@ -169,7 +178,7 @@ var SentryPlugin = /** @class */ (function (_super) {
                 shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';
                 shell.env.SENTRY_ORG = process.env.SENTRY_ORG || '';
                 // Notify of release deployment
-                shell.exec("sentry-cli releases deploys \"".concat(currentVersion, "\" new -e \"").concat(process.env.SENTRY_ENVIRONMENT, "\" -u \"").concat(process.env.DEPLOY_URL, "\""), { silent: false });
+                shell.exec("sentry-cli releases deploys \"".concat(currentVersion, "\" new -e \"").concat(process.env.SENTRY_ENVIRONMENT, "\" -u \"").concat(process.env.SENTRY_DEPLOY_URL, "\""), { silent: false });
                 if (process.env.SENTRY_REPOSITORY_ID) {
                     releaseCommitRef = shell
                         .exec('git log -1 --format="%H"', { silent: true })
