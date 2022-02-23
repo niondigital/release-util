@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/niondigital/release-util/compare/v3.2.1...v3.3.0) (2022-02-23)
+
+
+### Features
+
+* support sentry autos commit association ([8c547ba](https://github.com/niondigital/release-util/commit/8c547ba))
+
 ## [3.2.1](https://github.com/niondigital/release-util/compare/v3.2.0...v3.2.1) (2022-02-23)
 
 
