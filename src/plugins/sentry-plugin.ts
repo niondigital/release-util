@@ -118,7 +118,11 @@ export default class SentryPlugin extends Plugin {
 				{ silent: false }
 			);
 		} else {
-			this.log(chalk.yellow('Environment variable SENTRY_REPOSITORY_ID not set - skipping associating commits...'));
+			this.log(chalk.yellow('Environment variable SENTRY_REPOSITORY_ID not set - trying to auto-assoce commits...'));
+			shell.exec(
+				`sentry-cli releases set-commits "${currentVersion}" --auto`,
+				{ silent: false }
+			);
 		}
 		this.log(chalk.greenBright('Sentry release completed'));
 	}
