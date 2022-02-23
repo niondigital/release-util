@@ -135,7 +135,9 @@ var SentryPlugin = /** @class */ (function (_super) {
                 if (process.env.SENTRY_SOURCEMAPS) {
                     sourceMapPaths = (process.env.SENTRY_SOURCEMAPS || '').split(',');
                     sourceMapPaths.forEach(function (sourceMapPath) {
-                        shell.exec("sentry-cli releases files \"".concat(currentVersion, "\" upload-sourcemaps ").concat(sourceMapPath), { silent: false });
+                        shell.exec("sentry-cli releases files \"".concat(currentVersion, "\" upload-sourcemaps ").concat(sourceMapPath), {
+                            silent: false
+                        });
                     });
                 }
                 // finalize release
@@ -149,7 +151,7 @@ var SentryPlugin = /** @class */ (function (_super) {
                     shell.exec("sentry-cli releases set-commits \"".concat(currentVersion, "\" --commit \"").concat(process.env.SENTRY_REPOSITORY_ID, "@").concat(releaseCommitRef, "\""), { silent: false });
                 }
                 else {
-                    this.log(chalk.yellow('Environment variable SENTRY_REPOSITORY_ID not set - trying to auto-assoce commits...'));
+                    this.log(chalk.yellow('Environment variable SENTRY_REPOSITORY_ID not set - trying to auto-associate commits...'));
                     shell.exec("sentry-cli releases set-commits \"".concat(currentVersion, "\" --auto"), { silent: false });
                 }
                 this.log(chalk.greenBright('Sentry release completed'));
