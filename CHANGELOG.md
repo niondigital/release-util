@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/niondigital/release-util/compare/v3.4.0...v3.4.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* datadov version includes package name ([380b190](https://github.com/niondigital/release-util/commit/380b190))
+
 # [3.4.0](https://github.com/niondigital/release-util/compare/v3.3.1...v3.4.0) (2022-05-19)
 
 
