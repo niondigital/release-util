@@ -53,7 +53,7 @@ export default class DatadogPlugin extends Plugin {
 
 		// use fresh version info from package.json instead of using process.env.npm_package_version as version was changed by semantic-release since app start
 		const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
-		const currentVersion = `${packageJson.name}@${packageJson.version}`;
+		const currentVersion = packageJson.version;
 
 		this.log(chalk.white(`Datadog release version: ${currentVersion}`));
 

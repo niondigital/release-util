@@ -103,7 +103,7 @@ var DatadogPlugin = /** @class */ (function (_super) {
                 }
                 this.log(chalk.white('DataDog is enabled - uploading source maps...'));
                 packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
-                currentVersion = "".concat(packageJson.name, "@").concat(packageJson.version);
+                currentVersion = packageJson.version;
                 this.log(chalk.white("Datadog release version: ".concat(currentVersion)));
                 if (!process.env.DATADOG_API_KEY) {
                     throw new Error('Please set environment variable DATADOG_API_KEY');
