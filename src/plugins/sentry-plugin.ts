@@ -10,7 +10,7 @@ import Plugin from '../base/Plugin';
 
 export default class SentryPlugin extends Plugin {
 	public getName(): string {
-		return 'heyday-release-sentry';
+		return 'niondigital-release-sentry';
 	}
 
 	public init(rootProgram: program.Command): void {

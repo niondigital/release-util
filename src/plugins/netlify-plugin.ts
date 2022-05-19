@@ -7,7 +7,7 @@ import Plugin from '../base/Plugin';
 
 export default class NetlifyPlugin extends Plugin {
 	public getName(): string {
-		return 'heyday-release-netlify';
+		return 'niondigital-release-netlify';
 	}
 
 	public init(rootProgram: program.Command): void {
