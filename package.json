@@ -10,7 +10,7 @@
 		"release-util": "dist/release-util.js"
 	},
 	"dependencies": {
-		"@niondigital/env-util": "^1.1.0",
+		"@niondigital/env-util": "^1.1.8",
 		"app-root-path": "^3.0.0",
 		"chalk": "^4.1.2",
 		"commander": "^8.3.0",
