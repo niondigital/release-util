@@ -1,3 +1,12 @@
+# [3.4.0](https://github.com/niondigital/release-util/compare/v3.3.1...v3.4.0) (2022-05-19)
+
+
+### Features
+
+* datadog sourcemap support ([8040161](https://github.com/niondigital/release-util/commit/8040161))
+* datadog sourcemap support ([8f541fc](https://github.com/niondigital/release-util/commit/8f541fc))
+* support deployments without urls ([d228078](https://github.com/niondigital/release-util/commit/d228078))
+
 ## [3.3.1](https://github.com/niondigital/release-util/compare/v3.3.0...v3.3.1) (2022-02-23)
 
 # [3.3.0](https://github.com/niondigital/release-util/compare/v3.2.1...v3.3.0) (2022-02-23)
