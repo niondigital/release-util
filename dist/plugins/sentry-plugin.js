@@ -64,7 +64,7 @@ var SentryPlugin = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     SentryPlugin.prototype.getName = function () {
-        return 'heyday-release-sentry';
+        return 'niondigital-release-sentry';
     };
     SentryPlugin.prototype.init = function (rootProgram) {
         var _this = this;

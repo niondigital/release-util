@@ -50,7 +50,7 @@ function getPlugins() {
                     releasePlugins = process.env.RELEASE_PLUGINS;
                     if (!releasePlugins) return [3 /*break*/, 2];
                     return [4 /*yield*/, Promise.all(releasePlugins.split(',').map(function (pluginName) { return __awaiter(_this, void 0, void 0, function () {
-                            var pluginModule, error_1, error_2, pluginInstance;
+                            var pluginModule, error_1, error2_1, pluginInstance;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
@@ -69,7 +69,7 @@ function getPlugins() {
                                         pluginModule = _a.sent(); // eslint-disable-line @typescript-eslint/no-var-requires
                                         return [3 /*break*/, 6];
                                     case 5:
-                                        error_2 = _a.sent();
+                                        error2_1 = _a.sent();
                                         return [3 /*break*/, 6];
                                     case 6: return [3 /*break*/, 7];
                                     case 7:

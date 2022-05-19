@@ -5,6 +5,7 @@ exports["default"] = exports.finishDeployment = exports.createDeployment = expor
 require("@niondigital/env-util");
 var fs = require("fs");
 var path = require("path");
+var chalk = require("chalk");
 var commander_1 = require("commander");
 exports["default"] = commander_1.program;
 var create_1 = require("./commands/deployment/create");
@@ -14,10 +15,9 @@ exports.createRelease = create_2["default"];
 var finish_1 = require("./commands/deployment/finish");
 exports.finishDeployment = finish_1["default"];
 var getPlugins_1 = require("./base/getPlugins");
-var chalk = require("chalk");
 var packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
 console.log();
-console.log(chalk.gray('[heyday-release]'), chalk.white("version ".concat(packageJson.version)));
+console.log(chalk.gray('[niondigital-release]'), chalk.white("version ".concat(packageJson.version)));
 commander_1.program.version(packageJson.version, '-v, --version', 'output the current version');
 var releaseCommand = commander_1.program.command('release').description('Release operations');
 releaseCommand

@@ -61,7 +61,7 @@ var NetlifyPlugin = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     NetlifyPlugin.prototype.getName = function () {
-        return 'heyday-release-netlify';
+        return 'niondigital-release-netlify';
     };
     NetlifyPlugin.prototype.init = function (rootProgram) {
         this.log('Plugin initialized');
