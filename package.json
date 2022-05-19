@@ -1,5 +1,5 @@
 {
-	"name": "@madebyheyday/release-util",
+	"name": "@niondigital/release-util",
 	"version": "1.0.0",
 	"private": false,
 	"bin": {
@@ -10,15 +10,16 @@
 		"release-util": "dist/release-util.js"
 	},
 	"dependencies": {
-		"@madebyheyday/env-util": "^1.0.8",
+		"@niondigital/env-util": "^1.1.8",
 		"app-root-path": "^3.0.0",
 		"chalk": "4.1.2",
 		"commander": "^8.3.0",
 		"inquirer": "8.2.0",
-		"semantic-release": "^18.0.0",
-		"shelljs": "^0.8.4"
+		"semantic-release": "^19.0.2",
+		"shelljs": "^0.8.5"
 	},
 	"peerDependencies": {
+		"@datadog/datadog-ci": "^1.6.0",
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v2.0.0",
 		"@semantic-release/changelog": "^6.0.1",
 		"@semantic-release/commit-analyzer": "^9.0.2",
@@ -31,7 +32,7 @@
 		"semantic-release-slack-bot": "^3.0.0"
 	},
 	"devDependencies": {
-		"@madebyheyday/linting-base": "^2.0.6",
+		"@niondigital/linting-base": "^3.0.1",
 		"@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#v2.0.0",
 		"@semantic-release/changelog": "^6.0.1",
 		"@semantic-release/commit-analyzer": "^9.0.2",
@@ -57,6 +58,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:madebyheyday/release-util.git"
+		"url": "git@github.com:niondigital/release-util.git"
 	}
 }
