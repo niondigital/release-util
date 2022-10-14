@@ -52,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var shell = require("shelljs");
-var chalk = require("chalk");
+var chalk_1 = require("chalk");
 var fs = require("fs");
 var path = require("path");
 var appRoot = require("app-root-path");
@@ -98,13 +98,13 @@ var DatadogPlugin = /** @class */ (function (_super) {
                     return [2 /*return*/];
                 // only execute if sentry is enabled per environment config
                 if (!DatadogPlugin.isDatadogEnabled()) {
-                    this.log(chalk.yellow('Environment variable DATADOG_ENABLED not set or explicitly disabling Datadog - skipping datadog release...'));
+                    this.log(chalk_1["default"].yellow('Environment variable DATADOG_ENABLED not set or explicitly disabling Datadog - skipping datadog release...'));
                     return [2 /*return*/];
                 }
-                this.log(chalk.white('DataDog is enabled - uploading source maps...'));
+                this.log(chalk_1["default"].white('DataDog is enabled - uploading source maps...'));
                 packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
                 currentVersion = packageJson.version;
-                this.log(chalk.white("Datadog release version: ".concat(currentVersion)));
+                this.log(chalk_1["default"].white("Datadog release version: ".concat(currentVersion)));
                 if (!process.env.DATADOG_API_KEY) {
                     throw new Error('Please set environment variable DATADOG_API_KEY');
                 }
@@ -124,7 +124,7 @@ var DatadogPlugin = /** @class */ (function (_super) {
                         });
                     });
                 }
-                this.log(chalk.greenBright('Datadog release completed'));
+                this.log(chalk_1["default"].greenBright('Datadog release completed'));
                 return [2 /*return*/];
             });
         });
@@ -143,7 +143,7 @@ var DatadogPlugin = /** @class */ (function (_super) {
         return !['false', '0', ''].includes(String(process.env.DATADOG_ENABLED).toLowerCase());
     };
     DatadogPlugin.prototype.log = function (message) {
-        console.log("".concat(chalk.gray("[".concat(this.getName(), "]")), " ").concat(message));
+        console.log("".concat(chalk_1["default"].gray("[".concat(this.getName(), "]")), " ").concat(message));
     };
     return DatadogPlugin;
 }(Plugin_1["default"]));

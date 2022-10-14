@@ -8,6 +8,9 @@
   "engines": {
 	"node": ">=16"
   },
+  "engines": {
+	"node": ">=16"
+  },
   "scripts": {
 	"build": "rm -rf dist/* && tsc -d --outDir dist/ src/*.ts src/**/*.ts && chmod +x dist/release-util.js",
 	"release-util": "dist/release-util.js",
