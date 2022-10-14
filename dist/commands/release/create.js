@@ -12,7 +12,6 @@ function log(message) {
  * - Commits and pushes package.json and Changelog
  */
 async function executeSemanticRelease(dryRun = false) {
-    console.log(await getSemanticReleaseOptions());
     const result = await SemanticRelease({ ...(await getSemanticReleaseOptions()), dryRun });
     if (!result || result.lastRelease.version === result.nextRelease.version) {
         log(chalk.yellow('No release created'));
