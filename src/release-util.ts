@@ -3,15 +3,17 @@
 import '@niondigital/env-util';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import { program } from 'commander';
 import createDeployment from './commands/deployment/create';
 import createRelease from './commands/release/create';
 import finishDeployment from './commands/deployment/finish';
 import Plugin from './base/Plugin';
 import getPlugins from './base/getPlugins';
+import {fileURLToPath} from 'url';
 
-const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(__dirname, '../package.json'))));
+const __filename = fileURLToPath(import.meta.url);
+const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(path.dirname(__filename), '../package.json'))));
 
 console.log();
 console.log(chalk.gray('[niondigital-release]'), chalk.white(`version ${packageJson.version}`));

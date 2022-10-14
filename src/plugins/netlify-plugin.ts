@@ -1,5 +1,5 @@
 import * as shell from 'shelljs';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as program from 'commander'; // eslint-disable-line @typescript-eslint/no-unused-vars
 import Plugin from '../base/Plugin';
 

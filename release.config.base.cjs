@@ -1,7 +1,16 @@
 /* eslint-disable no-template-curly-in-string */
 const config = {
 	noCi: true,
-	branches: ['+([0-9])?(.{+([0-9]),x}).x', 'master', 'main'],
+	branches: [
+		{name: 'master'},
+		{name: 'main'},
+		{name: '+([0-9])?(.{+([0-9]),x}).x'},
+		{
+			name: 'release/*',
+			channel: '${name.replace(/^release\\//g, "")}',
+			prerelease: '${name.replace(/^release\\//g, "")}'
+		}
+	],
 	assets: [],
 	npmPublish: false,
 	linkReferences: false,
