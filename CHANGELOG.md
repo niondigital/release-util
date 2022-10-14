@@ -1,3 +1,30 @@
+# [3.5.0](https://github.com/niondigital/release-util/compare/v3.4.1...v3.5.0) (2022-10-14)
+
+
+### Bug Fixes
+
+* es module breaking execution ([9fbe27d](https://github.com/niondigital/release-util/commit/9fbe27d))
+
+
+### chore
+
+* dependency updates ([37e736a](https://github.com/niondigital/release-util/commit/37e736a))
+
+
+### Features
+
+* build on release/* branches for alternative release channels ([6000b77](https://github.com/niondigital/release-util/commit/6000b77))
+
+
+### BREAKING CHANGES
+
+* min. required node version is now 16
+
+chore: dependency updates
+* min. required node version is now 16
+
+chore: dep update ammend
+
 ## [3.4.1](https://github.com/niondigital/release-util/compare/v3.4.0...v3.4.1) (2022-05-19)
 
 
