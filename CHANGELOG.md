@@ -1,3 +1,10 @@
+## [3.5.1](https://github.com/niondigital/release-util/compare/v3.5.0...v3.5.1) (2022-10-14)
+
+
+### Bug Fixes
+
+* npm publish not executed ([f7c8e98](https://github.com/niondigital/release-util/commit/f7c8e98))
+
 # [3.5.0](https://github.com/niondigital/release-util/compare/v3.4.1...v3.5.0) (2022-10-14)
 
 
