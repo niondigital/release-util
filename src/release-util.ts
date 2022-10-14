@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import '@madebyheyday/env-util';
+import '@niondigital/env-util';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import { program } from 'commander';
 import createDeployment from './commands/deployment/create';
 import createRelease from './commands/release/create';
