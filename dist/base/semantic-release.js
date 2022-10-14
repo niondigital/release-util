@@ -1,13 +1,12 @@
-"use strict";
-exports.__esModule = true;
-exports.getSemanticReleaseOptions = void 0;
-var fs = require("fs");
-var path = require("path");
-var appRoot = require("app-root-path");
+import * as fs from 'fs';
+import appRoot from 'app-root-path';
+// @ts-ignore
+import * as configBase from '../../release.config.base.cjs';
 function getSemanticReleaseOptions() {
     // eslint-disable-next-line global-require,import/no-dynamic-require
-    var baseOptions = require(path.resolve(__dirname, '../../release.config.base.js')); // eslint-disable-line @typescript-eslint/no-var-requires
-    var localOptionsFilename = "".concat(appRoot, "/release.config.js");
+    const baseOptions = configBase.default;
+    const localOptionsFilename = `${appRoot}/release.config.js`;
     return fs.existsSync(localOptionsFilename) ? {} : baseOptions;
 }
-exports.getSemanticReleaseOptions = getSemanticReleaseOptions;
+export { getSemanticReleaseOptions };
+//# sourceMappingURL=semantic-release.js.map
