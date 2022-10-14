@@ -2,9 +2,9 @@
 const config = {
 	noCi: true,
 	branches: [
-		'master',
-		'main',
-		'+([0-9])?(.{+([0-9]),x}).x',
+		{name: 'master'},
+		{name: 'main'},
+		{name: '+([0-9])?(.{+([0-9]),x}).x'},
 		{
 			name: 'release/*',
 			channel: '${name.replace(/^release\\//g, "")}',
