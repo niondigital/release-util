@@ -1,6 +1,6 @@
 import * as shell from 'shelljs';
-import * as inquirer from 'inquirer';
-import * as chalk from 'chalk';
+import inquirer from 'inquirer';
+import chalk from 'chalk';
 
 function log(message: string): void {
 	console.log(`${chalk.gray('[createDeployment]')} ${message}`);
@@ -42,8 +42,9 @@ export default async function createDeployment(): Promise<void> {
 			return {
 				value: tagName,
 				short: tagName,
-				name: `${tagName.padEnd(12, ' ')}   (${creatorDateObject.getDate()}.${creatorDateObject.getMonth() +
-					1}.${creatorDateObject.getFullYear()})`
+				name: `${tagName.padEnd(12, ' ')}   (${creatorDateObject.getDate()}.${
+					creatorDateObject.getMonth() + 1
+				}.${creatorDateObject.getFullYear()})`
 			};
 		});
 
@@ -74,7 +75,7 @@ export default async function createDeployment(): Promise<void> {
 	currentBranchName = currentBranchName.replace('\n', '');
 
 	const statusResult: shell.ShellString = shell.exec('git status --porcelain');
-	let hasLocalChanges: boolean = statusResult.stdout.split('\n').length > 1;
+	const hasLocalChanges: boolean = statusResult.stdout.split('\n').length > 1;
 
 	if (hasLocalChanges) {
 		log('Stashing local changes...');

@@ -47,12 +47,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var chalk = require("chalk");
+var chalk_1 = require("chalk");
 var semantic_release_1 = require("../../base/semantic-release");
 var getPlugins_1 = require("../../base/getPlugins");
 var semanticRelease = require('semantic-release');
 function log(message) {
-    console.log("".concat(chalk.gray('[createRelease]'), " ").concat(message));
+    console.log("".concat(chalk_1["default"].gray('[createRelease]'), " ").concat(message));
 }
 /**
  * Create semantic release:
@@ -70,10 +70,10 @@ function executeSemanticRelease(dryRun) {
                 case 1:
                     result = _a.sent();
                     if (!result || result.lastRelease.version === result.nextRelease.version) {
-                        log(chalk.yellow('No release created'));
+                        log(chalk_1["default"].yellow('No release created'));
                         return [2 /*return*/, false];
                     }
-                    log(chalk.greenBright("Release created: ".concat(result.nextRelease.version)));
+                    log(chalk_1["default"].greenBright("Release created: ".concat(result.nextRelease.version)));
                     return [2 /*return*/, true];
             }
         });
@@ -95,7 +95,7 @@ function createRelease(dryRun) {
                 case 2:
                     checks = _e.sent();
                     if (checks.includes(false)) {
-                        log(chalk.white('Release Prevented by plugin'));
+                        log(chalk_1["default"].white('Release Prevented by plugin'));
                     }
                     _e.label = 3;
                 case 3:
@@ -111,7 +111,7 @@ function createRelease(dryRun) {
                         })])];
                 case 6:
                     _e.sent();
-                    log(chalk.greenBright('Finished'));
+                    log(chalk_1["default"].greenBright('Finished'));
                     process.exit();
                     _e.label = 7;
                 case 7: return [3 /*break*/, 9];

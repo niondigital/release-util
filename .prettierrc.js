@@ -1,1 +1,1 @@
-module.exports = require('./node_modules/@madebyheyday/linting-base/src/prettier.config.js');
+module.exports = require('./node_modules/@niondigital/linting-base/src/prettier.config.js');

@@ -1,4 +1,4 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as SemanticRelease from "semantic-release";
 import { getSemanticReleaseOptions } from '../../base/semantic-release';
 import Plugin from '../../base/Plugin';

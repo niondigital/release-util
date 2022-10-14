@@ -37,10 +37,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var shell = require("shelljs");
-var inquirer = require("inquirer");
-var chalk = require("chalk");
+var inquirer_1 = require("inquirer");
+var chalk_1 = require("chalk");
 function log(message) {
-    console.log("".concat(chalk.gray('[createDeployment]'), " ").concat(message));
+    console.log("".concat(chalk_1["default"].gray('[createDeployment]'), " ").concat(message));
 }
 function getDeploymentBranches() {
     if (!process.env.DEPLOYMENT_BRANCHES) {
@@ -55,7 +55,7 @@ function createDeployment() {
             switch (_a.label) {
                 case 0:
                     deploymentBranches = getDeploymentBranches();
-                    console.log("\n".concat(chalk.red('Attention:\n'), " - This command operates on multiple branches - consider commiting local changes first.\n - Make sure branches ").concat(deploymentBranches.join(', '), " exist locally and are set to follow to their origin/x counterparts.\n"));
+                    console.log("\n".concat(chalk_1["default"].red('Attention:\n'), " - This command operates on multiple branches - consider commiting local changes first.\n - Make sure branches ").concat(deploymentBranches.join(', '), " exist locally and are set to follow to their origin/x counterparts.\n"));
                     shell.exec('git fetch --all', { silent: true });
                     gitTagOutput = shell.exec("git tag -l --sort=-v:refname --format='%(refname:short)|%(creatordate)'", { silent: true });
                     releaseTagChoices = gitTagOutput.stdout
@@ -67,15 +67,14 @@ function createDeployment() {
                         return {
                             value: tagName,
                             short: tagName,
-                            name: "".concat(tagName.padEnd(12, ' '), "   (").concat(creatorDateObject.getDate(), ".").concat(creatorDateObject.getMonth() +
-                                1, ".").concat(creatorDateObject.getFullYear(), ")")
+                            name: "".concat(tagName.padEnd(12, ' '), "   (").concat(creatorDateObject.getDate(), ".").concat(creatorDateObject.getMonth() + 1, ".").concat(creatorDateObject.getFullYear(), ")")
                         };
                     });
                     if (releaseTagChoices.length === 0) {
-                        log(chalk.red('Error: No release exist that could be deployed.'));
+                        log(chalk_1["default"].red('Error: No release exist that could be deployed.'));
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, inquirer.prompt([
+                    return [4 /*yield*/, inquirer_1["default"].prompt([
                             {
                                 type: 'list',
                                 name: 'deployBranchName',
@@ -85,7 +84,7 @@ function createDeployment() {
                         ])];
                 case 1:
                     deployBranchName = (_a.sent()).deployBranchName;
-                    return [4 /*yield*/, inquirer.prompt([
+                    return [4 /*yield*/, inquirer_1["default"].prompt([
                             {
                                 type: 'list',
                                 name: 'tagName',
@@ -117,7 +116,7 @@ function createDeployment() {
                             shell.exec('git stash pop');
                         }
                     }
-                    log(chalk.greenBright('Finished'));
+                    log(chalk_1["default"].greenBright('Finished'));
                     return [2 /*return*/];
             }
         });
