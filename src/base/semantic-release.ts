@@ -4,12 +4,24 @@ import semanticRelease from 'semantic-release';
 // @ts-ignore
 import * as configBase from '../../release.config.base.cjs';
 
-function getSemanticReleaseOptions(): semanticRelease.Options {
+async function getSemanticReleaseOptions(): Promise<semanticRelease.Options> {
 	// eslint-disable-next-line global-require,import/no-dynamic-require
 	const baseOptions: semanticRelease.Options = configBase.default
-	const localOptionsFilename: string = `${appRoot}/release.config.js`;
+	let localOptionsFilename: string = `${appRoot}/release.config.cjs`;
 
-	return fs.existsSync(localOptionsFilename) ? {} : baseOptions;
+	if (fs.existsSync(localOptionsFilename)) {
+		const localOptions: semanticRelease.Options = await import(localOptionsFilename);
+		return { ...baseOptions, ...localOptions };
+	}
+
+	localOptionsFilename = `${appRoot}/release.config.js`;
+
+	if (fs.existsSync(localOptionsFilename)) {
+		const localOptions: semanticRelease.Options = await import(localOptionsFilename);
+		return { ...baseOptions, ...localOptions };
+	}
+
+	return baseOptions;
 }
 
 export { getSemanticReleaseOptions };
