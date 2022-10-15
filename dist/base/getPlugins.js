@@ -1,4 +1,4 @@
-import * as path from 'path';
+import { resolve } from 'path';
 import appRoot from 'app-root-path';
 import Plugin from './Plugin';
 export default async function getPlugins() {
@@ -12,7 +12,7 @@ export default async function getPlugins() {
             }
             catch (error) {
                 try {
-                    pluginModule = await import(path.resolve(String(appRoot), pluginName)); // eslint-disable-line @typescript-eslint/no-var-requires
+                    pluginModule = await import(resolve(String(appRoot), pluginName)); // eslint-disable-line @typescript-eslint/no-var-requires
                 }
                 catch (error2) {
                     //

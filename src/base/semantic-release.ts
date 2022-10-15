@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import {existsSync} from 'fs';
 import appRoot from 'app-root-path';
 import semanticRelease from 'semantic-release';
 // @ts-ignore
@@ -9,14 +9,14 @@ async function getSemanticReleaseOptions(): Promise<semanticRelease.Options> {
 	const baseOptions: semanticRelease.Options = configBase.default
 	let localOptionsFilename: string = `${appRoot}/release.config.cjs`;
 
-	if (fs.existsSync(localOptionsFilename)) {
+	if (existsSync(localOptionsFilename)) {
 		const localOptions: semanticRelease.Options = await import(localOptionsFilename);
 		return { ...baseOptions, ...localOptions };
 	}
 
 	localOptionsFilename = `${appRoot}/release.config.js`;
 
-	if (fs.existsSync(localOptionsFilename)) {
+	if (existsSync(localOptionsFilename)) {
 		const localOptions: semanticRelease.Options = await import(localOptionsFilename);
 		return { ...baseOptions, ...localOptions };
 	}

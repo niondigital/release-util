@@ -1,4 +1,4 @@
-import * as program from 'commander';
+import program from 'commander';
 import Plugin from '../base/Plugin';
 export default class SentryPlugin extends Plugin {
     getName(): string;

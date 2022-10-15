@@ -1,4 +1,4 @@
-import * as shell from 'shelljs';
+import shell from 'shelljs';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 function log(message) {
