@@ -1,4 +1,4 @@
-import * as program from 'commander';
+import program from 'commander';
 export default abstract class Plugin {
     abstract getName(): string;
     abstract init(program: program.Command): void;

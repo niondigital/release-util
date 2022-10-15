@@ -1,7 +1,7 @@
-import * as shell from 'shelljs';
+import shell from 'shelljs';
 import chalk from 'chalk';
-import * as fs from 'fs';
-import * as path from 'path';
+import { readFileSync } from 'fs';
+import path from 'path';
 import appRoot from 'app-root-path';
 import Plugin from '../base/Plugin';
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -38,7 +38,7 @@ export default class DatadogPlugin extends Plugin {
         }
         this.log(chalk.white('DataDog is enabled - uploading source maps...'));
         // use fresh version info from package.json instead of using process.env.npm_package_version as version was changed by semantic-release since app start
-        const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
+        const packageJson = JSON.parse(String(readFileSync(path.resolve(String(appRoot), './package.json'))));
         const currentVersion = packageJson.version;
         this.log(chalk.white(`Datadog release version: ${currentVersion}`));
         if (!process.env.DATADOG_API_KEY) {

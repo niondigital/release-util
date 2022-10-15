@@ -1,4 +1,4 @@
-import * as shell from 'shelljs';
+import shell from 'shelljs';
 import chalk from 'chalk';
 import Plugin from '../base/Plugin';
 /* eslint-disable @typescript-eslint/no-unused-vars */

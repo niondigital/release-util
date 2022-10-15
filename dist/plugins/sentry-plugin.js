@@ -1,7 +1,7 @@
-import * as shell from 'shelljs';
+import shell from 'shelljs';
 import chalk from 'chalk';
-import * as fs from 'fs';
-import * as path from 'path';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import appRoot from 'app-root-path';
 import Plugin from '../base/Plugin';
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -46,7 +46,7 @@ export default class SentryPlugin extends Plugin {
         }
         this.log(chalk.white('Sentry is enabled - starting Sentry release...'));
         // use fresh version info from package.json instead of using process.env.npm_package_version as version was changed by semantic-release since app start
-        const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
+        const packageJson = JSON.parse(String(readFileSync(resolve(String(appRoot), './package.json'))));
         const currentVersion = `${packageJson.name}@${packageJson.version}`;
         this.log(chalk.white(`Sentry release version: ${currentVersion}`));
         if (!process.env.SENTRY_AUTH_TOKEN) {
@@ -109,7 +109,7 @@ export default class SentryPlugin extends Plugin {
             return;
         }
         console.log(chalk.white('[complete-deployment] Notifying Sentry of release deployment...'));
-        const packageJson = JSON.parse(String(fs.readFileSync(path.resolve(String(appRoot), './package.json'))));
+        const packageJson = JSON.parse(String(readFileSync(resolve(String(appRoot), './package.json'))));
         const currentVersion = `${packageJson.name}@${packageJson.version}`;
         console.log(chalk.white(`[complete-deployment] Sentry release version to deploy: ${currentVersion}`));
         shell.env.SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN || '';

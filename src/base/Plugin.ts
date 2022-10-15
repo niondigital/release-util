@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import * as program from 'commander';
+import program from 'commander';
 
 export default abstract class Plugin {
 	public abstract getName(): string;
