@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "bin": {
-	"release-util": "./dist/release-util.js"
+	"release-util": "./scripts/release-util.sh"
   },
   "type": "module",
   "engines": {
@@ -11,7 +11,7 @@
   },
   "scripts": {
 	"build": "rm -rf dist/* && tsc -p tsconfig.json -d --outDir dist/ && chmod +x dist/release-util.js",
-	"release-util": "node --es-module-specifier-resolution=node dist/release-util.js",
+	"release-util": "./scripts/release-util.sh",
 	"ts:typecheck": "tsc --noEmit"
   },
   "dependencies": {
