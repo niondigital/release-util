@@ -1,3 +1,10 @@
+## [3.5.3](https://github.com/niondigital/release-util/compare/v3.5.2...v3.5.3) (2022-10-15)
+
+
+### Bug Fixes
+
+* script import path ([71b13ad](https://github.com/niondigital/release-util/commit/71b13ad))
+
 ## [3.5.2](https://github.com/niondigital/release-util/compare/v3.5.1...v3.5.2) (2022-10-15)
 
 ## [3.5.1](https://github.com/niondigital/release-util/compare/v3.5.0...v3.5.1) (2022-10-14)
