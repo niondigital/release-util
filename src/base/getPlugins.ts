@@ -1,5 +1,5 @@
 import * as path from 'path';
-import * as appRoot from 'app-root-path';
+import appRoot from 'app-root-path';
 import Plugin from './Plugin';
 
 export default async function getPlugins(): Promise<Plugin[]> {
