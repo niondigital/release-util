@@ -1,3 +1,10 @@
+## [3.5.4](https://github.com/niondigital/release-util/compare/v3.5.3...v3.5.4) (2022-10-15)
+
+
+### Bug Fixes
+
+* app-root import broken after es switch ([f0f002d](https://github.com/niondigital/release-util/commit/f0f002d))
+
 ## [3.5.3](https://github.com/niondigital/release-util/compare/v3.5.2...v3.5.3) (2022-10-15)
 
 
