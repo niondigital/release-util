@@ -2,7 +2,7 @@ import * as shell from 'shelljs';
 import chalk from 'chalk';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as appRoot from 'app-root-path';
+import appRoot from 'app-root-path';
 import Plugin from '../base/Plugin';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export default class SentryPlugin extends Plugin {

@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import * as program from 'commander'; // eslint-disable-line @typescript-eslint/no-unused-vars
 import * as fs from 'fs';
 import * as path from 'path';
-import * as appRoot from 'app-root-path';
+import appRoot from 'app-root-path';
 import Plugin from '../base/Plugin';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
