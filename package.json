@@ -1,6 +1,6 @@
 {
   "name": "@niondigital/release-util",
-  "version": "3.5.4",
+  "version": "3.5.5",
   "private": false,
   "bin": {
     "release-util": "./scripts/release-util.sh"

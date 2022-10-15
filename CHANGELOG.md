@@ -1,3 +1,10 @@
+## [3.5.5](https://github.com/niondigital/release-util/compare/v3.5.4...v3.5.5) (2022-10-15)
+
+
+### Bug Fixes
+
+* removed non-es remains ([8c8677d](https://github.com/niondigital/release-util/commit/8c8677d))
+
 ## [3.5.4](https://github.com/niondigital/release-util/compare/v3.5.3...v3.5.4) (2022-10-15)
 
 
