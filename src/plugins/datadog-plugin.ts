@@ -57,26 +57,23 @@ export default class DatadogPlugin extends Plugin {
 
 		this.log(chalk.white(`Datadog release version: ${currentVersion}`));
 
-		if (!process.env.DATADOG_API_KEY) {
-			throw new Error('Please set environment variable DATADOG_API_KEY');
+		shell.env.DATADOG_API_KEY = process.env.DD_API_KEY ?? process.env.DATADOG_API_KEY;
+
+		if (!shell.env.DATADOG_API_KEY) {
+			throw new Error('Please set environment variable DD_API_KEY/DATADOG_API_KEY');
 		}
 
-		shell.env.DATADOG_API_KEY = process.env.DATADOG_API_KEY;
+		shell.env.DATADOG_SITE = process.env.DD_SITE ?? process.env.DATADOG_SITE;
+		shell.env.DATADOG_API_HOST = process.env.DD_API_HOST ?? process.env.DATADOG_API_HOST;
 
-		if (process.env.DATADOG_SITE) {
-			shell.env.DATADOG_SITE = process.env.DATADOG_SITE;
-		}
 
-		if (process.env.DATADOG_API_HOST) {
-			shell.env.DATADOG_API_HOST = process.env.DATADOG_API_HOST;
-		}
-
+		const sourceMaps = process.env.DD_SOURCEMAPS ?? process.env.DATADOG_SOURCEMAPS;
 		// Upload source maps (if paths are provided)
-		if (process.env.DATADOG_SOURCEMAPS) {
+		if (sourceMaps) {
 			// multiple source map configs may be provided, separated by comma
 			// each config must consist of a path and can optionally be prefixed  with options to pass to sentry-cli releases files ,
 			// like `--ext js --ext ts --ext tsx --ext jsx --ext map`
-			const sourceMapPaths: string[] = (process.env.DATADOG_SOURCEMAPS || '').split(',');
+			const sourceMapPaths: string[] = sourceMaps.split(',');
 			sourceMapPaths.forEach((sourceMapPath: string) => {
 				shell.exec(`datadog-ci sourcemaps upload ${sourceMapPath} --release-version '${currentVersion}'`, {
 					silent: false
