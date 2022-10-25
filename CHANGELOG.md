@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/niondigital/release-util/compare/v3.5.5...v3.6.0) (2022-10-25)
+
+
+### Features
+
+* support datadog short form environment variables ([961d5e8](https://github.com/niondigital/release-util/commit/961d5e8))
+
 ## [3.5.5](https://github.com/niondigital/release-util/compare/v3.5.4...v3.5.5) (2022-10-15)
 
 
