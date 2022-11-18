@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/niondigital/release-util/compare/v3.6.0...v3.7.0) (2022-11-18)
+
+
+### Features
+
+* support for multiple issues or bugs nodes in package.json ([1ae5715](https://github.com/niondigital/release-util/commit/1ae5715))
+
 # [3.6.0](https://github.com/niondigital/release-util/compare/v3.5.5...v3.6.0) (2022-10-25)
 
 
