@@ -1,3 +1,5 @@
+## [3.7.1](https://github.com/niondigital/release-util/compare/v3.7.0...v3.7.1) (2022-11-23)
+
 # [3.7.0](https://github.com/niondigital/release-util/compare/v3.6.0...v3.7.0) (2022-11-18)
 
 
