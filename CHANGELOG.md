@@ -1,3 +1,10 @@
+# [3.8.0](https://github.com/niondigital/release-util/compare/v3.7.1...v3.8.0) (2023-01-13)
+
+
+### Features
+
+* commit contents of reports directory ([dc94bd2](https://github.com/niondigital/release-util/commit/dc94bd2))
+
 ## [3.7.1](https://github.com/niondigital/release-util/compare/v3.7.0...v3.7.1) (2022-11-23)
 
 # [3.7.0](https://github.com/niondigital/release-util/compare/v3.6.0...v3.7.0) (2022-11-18)
