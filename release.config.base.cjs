@@ -61,7 +61,7 @@ const config = {
 		[
 			'@semantic-release/git',
 			{
-				assets: ['./package.json', './package-lock.json', './CHANGELOG.md', '.docker/docker-compose.deploy.yml'],
+				assets: ['./package.json', './package-lock.json', './CHANGELOG.md', '.docker/docker-compose.deploy.yml', 'reports/*'],
 				message: 'build: release ${nextRelease.version}\n\n${nextRelease.notes}'
 			}
 		]
