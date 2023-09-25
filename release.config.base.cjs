@@ -46,14 +46,12 @@ const config = {
 			}
 		],
 		[
-			'@semantic-release/release-notes-generator',
+			"@semantic-release/release-notes-generator",
 			{
-				config: '@seibert-io/conventional-changelog-heyday',
-				linkReferences: true,
-				writerOpts: {
-					commitsSort: ['scope', 'subject'],
-					commitGroupsSort: 'title'
-				}
+				"preset": "conventionalcommits",
+				"parserOpts": {
+					"noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+				},
 			}
 		],
 		'@semantic-release/npm',
