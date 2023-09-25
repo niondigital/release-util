@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import SemanticRelease from "semantic-release";
-import { getSemanticReleaseOptions } from '@src/base/semantic-release';
+import { getSemanticReleaseOptions } from '../../base/semantic-release';
 import getPlugins from '../../base/getPlugins';
 function log(message) {
     console.log(`${chalk.gray('[createRelease]')} ${message}`);
