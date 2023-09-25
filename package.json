@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "private": false,
   "bin": {
-    "release-util": "./scripts/release-util.sh"
+    "release-util": "scripts/release-util.sh"
   },
   "type": "module",
   "engines": {
@@ -55,6 +55,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:niondigital/release-util.git"
+    "url": "git+ssh://git@github.com/niondigital/release-util.git"
   }
 }
