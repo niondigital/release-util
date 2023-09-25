@@ -1,6 +1,6 @@
 {
   "name": "@niondigital/release-util",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "private": false,
   "bin": {
     "release-util": "./scripts/release-util.sh"
@@ -25,27 +25,17 @@
   },
   "peerDependencies": {
     "@datadog/datadog-ci": "^2.20.0",
-    "@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#463843a2dceb7f30d09d766c8ead49c16bdaaa6a",
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^11.0.0",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^9.0.7",
     "@semantic-release/gitlab": "^12.0.6",
-    "@semantic-release/npm": "^11.0.0",
-    "@semantic-release/release-notes-generator": "^12.0.0",
     "@sentry/cli": "^2.21.1",
     "semantic-release-slack-bot": "^4.0.2"
   },
   "devDependencies": {
     "@datadog/datadog-ci": "2.19.1",
     "@niondigital/linting-base": "6.2.2",
-    "@seibert-io/conventional-changelog-heyday": "github:seibert-io/conventional-changelog-heyday#463843a2dceb7f30d09d766c8ead49c16bdaaa6a",
     "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/commit-analyzer": "11.0.0",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "9.0.7",
-    "@semantic-release/npm": "11.0.0",
-    "@semantic-release/release-notes-generator": "12.0.0",
     "@sentry/cli": "2.21.1",
     "@types/app-root-path": "1.2.6",
     "@types/chalk": "2.2.0",
