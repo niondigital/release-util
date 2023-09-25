@@ -1,3 +1,21 @@
+## [4.0.0](https://github.com/niondigital/release-util/compare/v3.9.0...v4.0.0) (2023-09-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* see README section "Configuration" for configuration changes regarding JIRA issue references
+
+The following peer dependencies may be removed: @seibert-io/conventional-changelog-heyday, @semantic-release/commit-analyzer, @semantic-release/github, @semantic-release/npm, @semantic-release/release-notes-generator
+
+### Features
+
+* restructured dependencies 49a661b
+
+
+### Bug Fixes
+
+* release-notes not being generated 1c4973a
+
 # [3.8.0](https://github.com/niondigital/release-util/compare/v3.7.1...v3.8.0) (2023-01-13)
 
 
