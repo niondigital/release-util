@@ -1,3 +1,28 @@
+## [5.0.0](https://github.com/niondigital/release-util/compare/v4.0.1...v5.0.0) (2023-09-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* Minimum Node version now is 14.17
+* Moved semantic release plugins to peer dependencies
+* Minimum Node version now is 14.17
+* Moved semantic release plugins to peer dependencies
+
+### Features
+
+* datadog sourcemap support 8f541fc
+* revert commits now create a patch release 6706c76
+* updated dependencies and introduced peer dependencies 1c1cbb1
+* updated dependencies and introduced peer dependencies f2a4162
+* updated packages and switched to new org 8f03a12
+* warn if environment variables are missing 83da551
+
+
+### Bug Fixes
+
+* env-util is a dev dep c3cefae
+* remediated security concerns via dependency updates defbae5
+
 ## [4.0.0](https://github.com/niondigital/release-util/compare/v3.9.0...v4.0.0) (2023-09-25)
 
 
