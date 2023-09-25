@@ -1,3 +1,3 @@
-import semanticRelease from 'semantic-release';
-declare function getSemanticReleaseOptions(): Promise<semanticRelease.Options>;
+import { Options } from 'semantic-release';
+declare function getSemanticReleaseOptions(): Promise<Options>;
 export { getSemanticReleaseOptions };

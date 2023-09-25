@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import SemanticRelease from "semantic-release";
-import { getSemanticReleaseOptions } from '../../base/semantic-release';
+import SemanticRelease, { Result } from "semantic-release";
+import { getSemanticReleaseOptions } from '@src/base/semantic-release';
 import Plugin from '../../base/Plugin';
 import getPlugins from '../../base/getPlugins';
 
@@ -16,7 +16,7 @@ function log(message: string): void {
  * - Commits and pushes package.json and Changelog
  */
 async function executeSemanticRelease(dryRun: boolean = false): Promise<boolean> {
-	const result: SemanticRelease.Result = await SemanticRelease({ ...(await getSemanticReleaseOptions()), dryRun });
+	const result: Result = await SemanticRelease({ ...(await getSemanticReleaseOptions()), dryRun });
 
 	if (!result || result.lastRelease.version === result.nextRelease.version) {
 		log(chalk.yellow('No release created'));
