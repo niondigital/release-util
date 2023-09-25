@@ -45,20 +45,15 @@ const config = {
 				]
 			}
 		],
-		/*
 		[
 			"@semantic-release/release-notes-generator",
 			{
 				"preset": "conventionalcommits",
-				"presetConfig": {
-					"issuePrefixes": ["TPD", "OS"],
-					"commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commits/{{hash}}",
-					"compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{currentTag}}%0D{{previousTag}}#diff",
-					"issueUrlFormat": "https://<fill in jira host here>.atlassian.net/browse/{{prefix}}{{id}}"
-				}
+				"parserOpts": {
+					"noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+				},
 			}
 		],
-		 */
 		'@semantic-release/npm',
 		'@semantic-release/changelog',
 		[

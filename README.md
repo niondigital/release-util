@@ -26,14 +26,16 @@ config.branches.push({
 
 /*
 // Example: replace JIRA issues ids with links to JIRA issues
+config.plugins = config.plugins.filter(plugin => plugin[0] !== "@semantic-release/release-notes-generator");
 config.plugins.push([
 	"@semantic-release/release-notes-generator",
 	{
+		"parserOpts": {
+          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+        },
 		"preset": "conventionalcommits",
 		"presetConfig": {
-			"issuePrefixes": ["TPD", "OS"],
-			"commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commits/{{hash}}",
-			"compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{currentTag}}%0D{{previousTag}}#diff",
+			"issuePrefixes": ["TPD-", "OS-"],
 			"issueUrlFormat": "https://<fill in jira host here>.atlassian.net/browse/{{prefix}}{{id}}"
 		}
 	}
