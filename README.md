@@ -2,6 +2,49 @@
 
 Toolkit to create releases and handle deployments
 
+## Installation
+
+Install the package via `npm install @niondigital/release-util`
+
+## Configuration
+
+Create a configuration file `release.config.js` (or `release.config.cjs` in case of an ESM module project) in the root of your project:
+
+```js
+/* eslint-disable no-template-curly-in-string */
+// import base config
+
+const config = require('./node_modules/@niondigital/release-util/release.config.base.cjs');
+/*
+// Example: support alternate distribution channels for branches named release/*
+config.branches.push({
+	name: 'release/*',
+	channel: '${name.replace(/^release\\//g, "")}',
+	prerelease: '${name.replace(/^release\\//g, "")}'
+});
+*/
+
+/*
+// Example: replace JIRA issues ids with links to JIRA issues
+config.plugins.push([
+	"@semantic-release/release-notes-generator",
+	{
+		"preset": "conventionalcommits",
+		"presetConfig": {
+			"issuePrefixes": ["TPD", "OS"],
+			"commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commits/{{hash}}",
+			"compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{currentTag}}%0D{{previousTag}}#diff",
+			"issueUrlFormat": "https://<fill in jira host here>.atlassian.net/browse/{{prefix}}{{id}}"
+		}
+	}
+]);
+ */
+
+// export config
+module.exports = config;
+
+```
+
 ## Usage
 
 Run CLI command `release-util` to explore its options

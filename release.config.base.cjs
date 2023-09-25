@@ -45,17 +45,20 @@ const config = {
 				]
 			}
 		],
+		/*
 		[
-			'@semantic-release/release-notes-generator',
+			"@semantic-release/release-notes-generator",
 			{
-				config: '@seibert-io/conventional-changelog-heyday',
-				linkReferences: true,
-				writerOpts: {
-					commitsSort: ['scope', 'subject'],
-					commitGroupsSort: 'title'
+				"preset": "conventionalcommits",
+				"presetConfig": {
+					"issuePrefixes": ["TPD", "OS"],
+					"commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commits/{{hash}}",
+					"compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{currentTag}}%0D{{previousTag}}#diff",
+					"issueUrlFormat": "https://<fill in jira host here>.atlassian.net/browse/{{prefix}}{{id}}"
 				}
 			}
 		],
+		 */
 		'@semantic-release/npm',
 		'@semantic-release/changelog',
 		[
